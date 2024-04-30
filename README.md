@@ -2,7 +2,7 @@
 
 ### 프로젝트 기간 : 5/3(금) ~ 5/10(금)
 ### 과제 결과물 마감 기한 : 5/13 (월) 10:00 / LMS 제출을 기준으로 합니다.
-### 자세한 사항은 [RFP](https://drive.google.com/drive/folders/1Oo3o65oG5uVGaRy-NJ53gX7jmisT_WOQ?usp=sharing) 참고 부탁드립니다.
+### 자세한 사항은 [RFP]([https://drive.google.com/drive/folders/1Oo3o65oG5uVGaRy-NJ53gX7jmisT_WOQ?usp=sharing](https://drive.google.com/drive/folders/1HX2KIgbLfaDlViR4MD-Nd9i6OTybomY3)) 참고 부탁드립니다.
 
 ### 프로젝트 설명
 - [RFP](https://drive.google.com/drive/folders/1Oo3o65oG5uVGaRy-NJ53gX7jmisT_WOQ?usp=sharing)를 기반으로 팀별로 결과물을 작업하여 제출하시오. 
