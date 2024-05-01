@@ -2,10 +2,10 @@
 
 ### 프로젝트 기간 : 5/3(금) ~ 5/10(금)
 ### 과제 결과물 마감 기한 : 5/13 (월) 10:00 / LMS 제출을 기준으로 합니다.
-### 자세한 사항은 [RFP](https://www.notion.so/2-bbeabfbbbf5a40d798c526d971acff1d) 노션 참고 부탁드립니다.
+### 자세한 사항은 [RFP]([https://www.notion.so/2-bbeabfbbbf5a40d798c526d971acff1d](https://www.notion.so/Toy-Project-2-49e18b8c97f243f39ffaed8f6987e64a)) 노션 참고 부탁드립니다.
 
 ### 프로젝트 설명
-- [RFP](https://www.notion.so/2-bbeabfbbbf5a40d798c526d971acff1d)를 기반으로 팀별로 결과물을 작업하여 제출하시오. 
+- [RFP]([https://www.notion.so/2-bbeabfbbbf5a40d798c526d971acff1d](https://www.notion.so/2-bbeabfbbbf5a40d798c526d971acff1d))를 기반으로 팀별로 결과물을 작업하여 제출하시오. 
 - 달성 목표: Spring Legacy 기반 프로젝트, DB 설계, DB 트랜잭션, RESTful API 설계
   - 여행의 여정 정보를 기록하고 조회하는 Spring Legacy기반 RESTful API 개발
   - 진행한 여행, 여정 정보를 조회, 등록 수정하기 위한 ERD 설계 및 개발			
