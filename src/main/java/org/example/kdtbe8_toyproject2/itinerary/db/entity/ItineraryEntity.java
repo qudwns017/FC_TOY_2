@@ -15,11 +15,12 @@ import java.time.LocalDateTime;
 public class ItineraryEntity {
 
     @Id
-    private Long itineraryId;
+    @Generated
+    private Long id;
     private Long tripId;
-    private String itineraryName;
+    private String name;
     private Integer type;
-    private LocalDateTime startDateTime;
-    private LocalDateTime endDateTime;
+    private LocalDateTime startDatetime;
+    private LocalDateTime endDatetime;
     private String comment;
 }

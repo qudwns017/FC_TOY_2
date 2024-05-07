@@ -9,9 +9,9 @@ import java.util.List;
 
 @Mapper
 public interface ItineraryMapper {
-    List<ItineraryEntity> findAllItinerary();
-    List<MoveEntity> findAllMoves();
-    List<StayEntity> findAllStays();
+    List<ItineraryEntity> findAllItineraries(Long tripId);
+    MoveEntity findMoveById(Long itineraryId);
+    StayEntity findStayById(Long itineraryId);
 
     public Long createItinerary(ItineraryEntity itinerary);
     public int createMove(MoveEntity move);

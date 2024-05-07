@@ -7,7 +7,7 @@ import org.example.kdtbe8_toyproject2.itinerary.service.ItineraryService2;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/trips/{tripId}/itineraries")
+@RequestMapping("")
 @RequiredArgsConstructor
 public class ItineraryController2 {
     private final ItineraryService2 itineraryService2;

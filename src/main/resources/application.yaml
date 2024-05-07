@@ -9,3 +9,5 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   configuration-properties:
     defaultStatementTimeout: 25
+  configuration:
+    map-underscore-to-camel-case: true
