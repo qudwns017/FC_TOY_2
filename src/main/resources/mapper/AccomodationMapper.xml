@@ -10,7 +10,7 @@
         values (#{tripId}, #{name}, #{checkInDatetime}, #{checkOutDatetime})
     </insert>
 
-    <select id="findByTripId" parameterType="org.example.accomodation.db.AccomodationEntity" resultType="org.example.accomodation.db.AccomodationEntity">
+    <select id="findByTripId" parameterType="org.example.accomodation.db.AccomodationEntity" >
         select * from accommodation
         where trip_id = #{tripId} <!--and accomodation_id = #{accomodationId}-->
     </select>
