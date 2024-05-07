@@ -13,12 +13,13 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class AccomodationService {
+
     private final AccomodationMapper accomodationMapper;
     private final AccomodationConverter accomodationConverter;
 
-    public void create(Long trip_id,AccomodationRequest accomodationRequest) {
+    public void create(Long tripId,AccomodationRequest accomodationRequest) {
         var entity = AccomodationEntity.builder()
-                .tripId(trip_id)
+                .tripId(accomodationRequest.getTripId())
                 .accomodationId(accomodationRequest.getTripId())
                 .name(accomodationRequest.getName())
                 .checkInDatetime(accomodationRequest.getCheckInDatetime())
