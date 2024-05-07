@@ -17,5 +17,12 @@ import java.time.LocalDateTime;
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class AccomodationRequest {
 
-
+    @NotNull
+    private Long tripId;
+    @NotBlank
+    private String name;
+    @NotNull
+    private LocalDateTime checkInDatetime;
+    @NotNull
+    private LocalDateTime checkOutDatetime;
 }
