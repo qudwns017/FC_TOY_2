@@ -22,8 +22,8 @@ public class ItineraryService2 {
                 .tripId(tripId)
                 .itineraryName(itineraryRequest.getItineraryName())
                 .type(itineraryRequest.getType())
-                .startTime(itineraryRequest.getStartDate())
-                .endTime(itineraryRequest.getEndDate())
+                .startDateTime(itineraryRequest.getStartDate())
+                .endDateTime(itineraryRequest.getEndDate())
                 .comment(itineraryRequest.getComment())
                 .build();
         var saveEntity = itineraryMapper.createItinerary(itineraryEntity);
