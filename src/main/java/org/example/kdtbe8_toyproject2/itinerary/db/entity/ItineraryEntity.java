@@ -1,4 +1,4 @@
-package org.example.itinerary.db.entity;
+package org.example.kdtbe8_toyproject2.itinerary.db.entity;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -15,11 +15,11 @@ public class ItineraryEntity {
 
     @Id
     @Generated
-    private Long itineraryId;
+    private Long id;
     private Long tripId;
-    private String itineraryName;
+    private String name;
     private Integer type;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-    private String content;
+    private LocalDateTime startDatetime;
+    private LocalDateTime endDatetime;
+    private String comment;
 }

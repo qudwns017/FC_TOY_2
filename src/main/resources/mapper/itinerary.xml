@@ -3,16 +3,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.example.itinerary.db.mapper.ItineraryMapper">
-    <select id="findAllItinerary" resultType="org.example.itinerary.db.entity.ItineraryEntity">
-        select * from itinerary
+<mapper namespace="org.example.kdtbe8_toyproject2.itinerary.db.mapper.ItineraryMapper">
+    <select id="findAllItineraries" resultType="org.example.kdtbe8_toyproject2.itinerary.db.entity.ItineraryEntity">
+        SELECT *
+        FROM itinerary
+        WHERE trip_id = #{tripId}
     </select>
 
-    <select id="findAllMove" resultType="org.example.itinerary.db.entity.MoveEntity">
-        select * from move
+    <select id="findMoveById" resultType="org.example.kdtbe8_toyproject2.itinerary.db.entity.MoveEntity">
+        SELECT *
+        FROM move
+        WHERE itinerary_id = #{itineraryId}
     </select>
 
-    <select id="findAllStay" resultType="org.example.itinerary.db.entity.StayEntity">
-        select * from stay
+    <select id="findStayById" resultType="org.example.kdtbe8_toyproject2.itinerary.db.entity.StayEntity">
+        SELECT *
+        FROM stay
+        WHERE itinerary_id = #{itineraryId}
     </select>
 </mapper>
