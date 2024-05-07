@@ -2,6 +2,7 @@ package org.example.accomodation.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.accomodation.db.AccomodationEntity;
 import org.example.accomodation.model.AccomodationDTO;
 import org.example.accomodation.model.AccomodationRequest;
@@ -22,9 +23,9 @@ public class AccomodationController {
         accomodationService.create(tripId, accomodationRequest);
     }
 
-    @DeleteMapping("/trips/{trip_id}/accommodation/{id}")
-    public void delete(@PathVariable Long trip_id, @PathVariable Long id){
-         accomodationService.delete(trip_id, id);
+    @DeleteMapping("/trips/{tripId}/accommodation/{id}")
+    public void delete(@PathVariable Long tripId, @PathVariable Long id){
+         accomodationService.delete(tripId, id);
     }
 
   /*  @GetMapping("/trips/{trip_id}/accommodation/{id}") //findByTripId인데 accomId가 필요한가
