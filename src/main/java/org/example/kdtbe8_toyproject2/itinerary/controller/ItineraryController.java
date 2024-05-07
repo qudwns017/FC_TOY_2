@@ -2,7 +2,7 @@ package org.example.kdtbe8_toyproject2.itinerary.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.kdtbe8_toyproject2.itinerary.model.ItineraryRequest;
+import org.example.kdtbe8_toyproject2.itinerary.model.request.ItineraryRequest;
 import org.example.kdtbe8_toyproject2.itinerary.model.dto.ItineraryDto;
 import org.example.kdtbe8_toyproject2.itinerary.service.service.ItineraryService;
 import org.springframework.web.bind.annotation.*;

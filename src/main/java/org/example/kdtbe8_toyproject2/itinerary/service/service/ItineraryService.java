@@ -5,7 +5,7 @@ import org.example.kdtbe8_toyproject2.itinerary.db.entity.ItineraryEntity;
 import org.example.kdtbe8_toyproject2.itinerary.db.entity.MoveEntity;
 import org.example.kdtbe8_toyproject2.itinerary.db.entity.StayEntity;
 import org.example.kdtbe8_toyproject2.itinerary.db.mapper.ItineraryMapper;
-import org.example.kdtbe8_toyproject2.itinerary.model.ItineraryRequest;
+import org.example.kdtbe8_toyproject2.itinerary.model.request.ItineraryRequest;
 import org.example.kdtbe8_toyproject2.itinerary.model.dto.ItineraryDto;
 import org.example.kdtbe8_toyproject2.itinerary.service.converter.ItineraryConverter;
 import org.springframework.stereotype.Service;
