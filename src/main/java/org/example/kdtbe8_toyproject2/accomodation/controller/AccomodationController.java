@@ -26,11 +26,6 @@ public class AccomodationController {
          accomodationService.delete(tripId, id);
     }
 
-  /*  @GetMapping("/trips/{trip_id}/accommodation/{id}") //findByTripId인데 accomId가 필요한가
-    public List<AccomodationEntity> findByTripId(@PathVariable Long trip_id, @PathVariable Long id){
-        return accomodationService.findByTripId(trip_id,id);
-    }*/
-
     @GetMapping("/trips/{tripId}/accommodation")
     public List<AccomodationDTO> findByTripId(@PathVariable Long tripId){
         return accomodationService.findByTripId(tripId);
@@ -38,3 +33,7 @@ public class AccomodationController {
     }
 }
 
+ /*  @GetMapping("/trips/{trip_id}/accommodation/{id}") //findByTripId인데 accomId가 필요한가
+    public List<AccomodationEntity> findByTripId(@PathVariable Long trip_id, @PathVariable Long id){
+        return accomodationService.findByTripId(trip_id,id);
+    }*/
