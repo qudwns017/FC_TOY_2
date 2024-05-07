@@ -66,6 +66,16 @@ public class ItineraryService {
                     .build();
             itineraryMapper.createStay(stayEntity);
         }
+    }
 
+    public void delete(Long itineraryId){
+        var itineraryEntity = itineraryMapper.findItineraryById(itineraryId);
+        itineraryMapper.deleteItinerary(itineraryId);
+        if(itineraryEntity.getType() == 0){
+            itineraryMapper.deleteMove(itineraryId);
+        }
+        else{
+            itineraryMapper.deleteStay(itineraryId);
+        }
     }
 }

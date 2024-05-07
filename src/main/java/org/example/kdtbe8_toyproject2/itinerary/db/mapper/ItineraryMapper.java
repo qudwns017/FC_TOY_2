@@ -21,4 +21,6 @@ public interface ItineraryMapper {
     public void deleteMove(Long itineraryId);
     public void deleteStay(Long itineraryId);
 
+    public ItineraryEntity findItineraryById(Long itineraryId);
+
 }
