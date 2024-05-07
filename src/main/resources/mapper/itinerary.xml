@@ -50,9 +50,9 @@
         delete from stay where itinerary_id=#{itineraryId}
     </delete>
 
-    <select id="findItineraryById" resultType="org.example.kdtbe8_toyproject2.itinerary.model.dto.ItineraryDto">
+    <select id="findItineraryById" resultType="org.example.kdtbe8_toyproject2.itinerary.db.entity.ItineraryEntity">
         SELECT *
         FROM itinerary
-        WHERE itinerary_id = #{itinerary_id}
+        WHERE id = #{itineraryId}
     </select>
 </mapper>

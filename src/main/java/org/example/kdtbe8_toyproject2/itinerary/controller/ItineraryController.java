@@ -30,4 +30,11 @@ public class ItineraryController {
     ){
         itineraryService.create(itineraryRequest,tripId);
     }
+
+    @DeleteMapping("/{itineraryId}")
+    public void delete(
+            @PathVariable Long itineraryId
+    ) {
+        itineraryService.delete(itineraryId);
+    }
 }
