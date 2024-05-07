@@ -6,7 +6,7 @@
 <mapper namespace="org.example.kdtbe8_toyproject2.accomodation.db.AccomodationMapper">
 
     <insert id="create" parameterType="org.example.kdtbe8_toyproject2.accomodation.db.AccomodationEntity">
-        insert into accommodation( trip_id, name, check_in_datetime, check_out_datetime)
+        insert into accommodation(trip_id, name, check_in_datetime, check_out_datetime)
         values (#{tripId}, #{name}, #{checkInDatetime}, #{checkOutDatetime})
     </insert>
 
@@ -17,7 +17,7 @@
 
     <delete id="delete" parameterType="org.example.kdtbe8_toyproject2.accomodation.db.AccomodationEntity" >
         delete from accommodation
-        where trip_id = #{tripId} and accommodation_id = #{accomodationId}
+        where trip_id = #{tripId} and id = #{id}
     </delete>
 
 </mapper>

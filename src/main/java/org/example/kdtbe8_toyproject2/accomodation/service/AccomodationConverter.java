@@ -10,7 +10,7 @@ public class AccomodationConverter {
     public AccomodationDTO toAccomodationDto(AccomodationEntity accomodationEntity){
         return AccomodationDTO.builder()
                 .tripId(accomodationEntity.getTripId())
-                .accomodationId(accomodationEntity.getAccomodationId())
+                .id(accomodationEntity.getId())
                 .tripId(accomodationEntity.getTripId())
                 .name(accomodationEntity.getName())
                 .checkInDatetime(accomodationEntity.getCheckInDatetime())

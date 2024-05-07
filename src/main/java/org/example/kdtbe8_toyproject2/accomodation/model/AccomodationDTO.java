@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class AccomodationDTO {
-    private Long accomodationId;
+    private Long id;
     private Long tripId;
     private String name;
     private LocalDateTime checkInDatetime;

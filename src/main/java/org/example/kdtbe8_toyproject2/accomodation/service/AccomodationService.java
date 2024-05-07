@@ -21,7 +21,7 @@ public class AccomodationService {
         //var TripEntity = tripMapper.findById(accomodationRequest.getTripId()).get();
         var entity = AccomodationEntity.builder()
                 .tripId(accomodationRequest.getTripId())
-                .accomodationId(accomodationRequest.getTripId())
+                .id(accomodationRequest.getId())
                 .name(accomodationRequest.getName())
                 .checkInDatetime(accomodationRequest.getCheckInDatetime())
                 .checkOutDatetime(accomodationRequest.getCheckOutDatetime())
@@ -30,8 +30,9 @@ public class AccomodationService {
 
     }
 
-    public void delete(Long tripId, Long accomodationId) {
-         accomodationMapper.delete(tripId,accomodationId);
+    public void delete(Long tripId, Long id) {
+        //var entity = accomodationMapper.findByTripId(tripId)
+         accomodationMapper.delete(tripId,id);
     }
 
 
