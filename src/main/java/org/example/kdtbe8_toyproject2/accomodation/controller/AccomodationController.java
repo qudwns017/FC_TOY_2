@@ -1,12 +1,10 @@
-package org.example.accomodation.controller;
+package org.example.kdtbe8_toyproject2.accomodation.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.example.accomodation.db.AccomodationEntity;
-import org.example.accomodation.model.AccomodationDTO;
-import org.example.accomodation.model.AccomodationRequest;
-import org.example.accomodation.service.AccomodationService;
+import org.example.kdtbe8_toyproject2.accomodation.model.AccomodationDTO;
+import org.example.kdtbe8_toyproject2.accomodation.model.AccomodationRequest;
+import org.example.kdtbe8_toyproject2.accomodation.service.AccomodationService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,7 +33,9 @@ public class AccomodationController {
 
     @GetMapping("/trips/{tripId}/accommodation")
     public List<AccomodationDTO> findByTripId(@PathVariable Long tripId){
-       return accomodationService.findByTripId(tripId);
+        System.out.println("dfg");
+        return accomodationService.findByTripId(tripId);
+
     }
 }
 

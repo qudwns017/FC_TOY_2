@@ -1,10 +1,10 @@
-package org.example.accomodation.service;
+package org.example.kdtbe8_toyproject2.accomodation.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.accomodation.db.AccomodationEntity;
-import org.example.accomodation.db.AccomodationMapper;
-import org.example.accomodation.model.AccomodationDTO;
-import org.example.accomodation.model.AccomodationRequest;
+import org.example.kdtbe8_toyproject2.accomodation.db.AccomodationEntity;
+import org.example.kdtbe8_toyproject2.accomodation.db.AccomodationMapper;
+import org.example.kdtbe8_toyproject2.accomodation.model.AccomodationDTO;
+import org.example.kdtbe8_toyproject2.accomodation.model.AccomodationRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +17,8 @@ public class AccomodationService {
     private final AccomodationMapper accomodationMapper;
     private final AccomodationConverter accomodationConverter;
 
-    public void create(Long tripId,AccomodationRequest accomodationRequest) {
+    public void create(Long tripId, AccomodationRequest accomodationRequest) {
+        //var TripEntity = tripMapper.findById(accomodationRequest.getTripId()).get();
         var entity = AccomodationEntity.builder()
                 .tripId(accomodationRequest.getTripId())
                 .accomodationId(accomodationRequest.getTripId())

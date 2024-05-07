@@ -3,19 +3,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.example.accomodation.db.AccomodationMapper">
+<mapper namespace="org.example.kdtbe8_toyproject2.accomodation.db.AccomodationMapper">
 
-    <insert id="create" parameterType="org.example.accomodation.db.AccomodationEntity">
+    <insert id="create" parameterType="org.example.kdtbe8_toyproject2.accomodation.db.AccomodationEntity">
         insert into accommodation( trip_id, name, check_in_datetime, check_out_datetime)
         values (#{tripId}, #{name}, #{checkInDatetime}, #{checkOutDatetime})
     </insert>
 
-    <select id="findByTripId" parameterType="org.example.accomodation.db.AccomodationEntity" >
+    <select id="findByTripId" parameterType="org.example.kdtbe8_toyproject2.accomodation.db.AccomodationEntity" >
         select * from accommodation
         where trip_id = #{tripId} <!--and accomodation_id = #{accomodationId}-->
     </select>
 
-    <delete id="delete" parameterType="org.example.accomodation.db.AccomodationEntity" >
+    <delete id="delete" parameterType="org.example.kdtbe8_toyproject2.accomodation.db.AccomodationEntity" >
         delete from accommodation
         where trip_id = #{tripId} and accomodation_id = #{accomodationId}
     </delete>

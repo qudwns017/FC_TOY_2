@@ -1,4 +1,4 @@
-package org.example.accomodation.model;
+package org.example.kdtbe8_toyproject2.accomodation.model;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @ToString
 @Builder
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
-
 public class AccomodationDTO {
     private Long accomodationId;
     private Long tripId;

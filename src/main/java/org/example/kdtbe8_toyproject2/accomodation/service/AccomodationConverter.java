@@ -1,7 +1,7 @@
-package org.example.accomodation.service;
+package org.example.kdtbe8_toyproject2.accomodation.service;
 
-import org.example.accomodation.db.AccomodationEntity;
-import org.example.accomodation.model.AccomodationDTO;
+import org.example.kdtbe8_toyproject2.accomodation.db.AccomodationEntity;
+import org.example.kdtbe8_toyproject2.accomodation.model.AccomodationDTO;
 
 public class AccomodationConverter {
 

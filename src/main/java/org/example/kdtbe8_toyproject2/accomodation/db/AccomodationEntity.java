@@ -1,4 +1,4 @@
-package org.example.accomodation.db;
+package org.example.kdtbe8_toyproject2.accomodation.db;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Builder
 public class AccomodationEntity {
 
-    @Id
     private Long accomodationId;
     private Long tripId; // fk
     private String name;
