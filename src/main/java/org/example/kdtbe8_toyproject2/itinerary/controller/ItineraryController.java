@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.example.kdtbe8_toyproject2.itinerary.model.ItineraryRequest;
 import org.example.kdtbe8_toyproject2.itinerary.model.dto.ItineraryDto;
 import org.example.kdtbe8_toyproject2.itinerary.service.service.ItineraryService;
-import org.example.kdtbe8_toyproject2.itinerary.service.service.ItineraryService1;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
