@@ -49,4 +49,10 @@
     <delete id="deleteStay">
         delete from stay where itinerary_id=#{itineraryId}
     </delete>
+
+    <select id="findItineraryById" resultType="org.example.kdtbe8_toyproject2.itinerary.model.dto.ItineraryDto">
+        SELECT *
+        FROM itinerary
+        WHERE itinerary_id = #{itinerary_id}
+    </select>
 </mapper>
