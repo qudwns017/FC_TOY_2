@@ -4,29 +4,23 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.example.kdtbe8_toyproject2.itinerary.db.mapper.ItineraryMapper">
-    <select id="findAllItineraries" resultType="org.example.kdtbe8_toyproject2.itinerary.db.entity.ItineraryEntity">
-        SELECT *
-        FROM itinerary
-        WHERE trip_id = #{tripId}
+    <select id="findAllItinerary" resultType="org.example.kdtbe8_toyproject2.itinerary.db.entity.ItineraryEntity">
+        select * from itinerary
     </select>
 
-    <select id="findMoveById" resultType="org.example.kdtbe8_toyproject2.itinerary.db.entity.MoveEntity">
-        SELECT *
-        FROM move
-        WHERE itinerary_id = #{itineraryId}
+    <select id="findAllMove" resultType="org.example.kdtbe8_toyproject2.itinerary.db.entity.MoveEntity">
+        select * from move
     </select>
 
-    <select id="findStayById" resultType="org.example.kdtbe8_toyproject2.itinerary.db.entity.StayEntity">
-        SELECT *
-        FROM stay
-        WHERE itinerary_id = #{itineraryId}
+    <select id="findAllStay" resultType="org.example.kdtbe8_toyproject2.itinerary.db.entity.StayEntity">
+        select * from stay
     </select>
 
     <insert id="createItinerary" parameterType="org.example.kdtbe8_toyproject2.itinerary.db.entity.ItineraryEntity">
         insert into itinerary (trip_id,name, type, start_datetime, end_datetime, comment)
-        values(#{tripId},#{name},#{type},#{startDatetime},#{endDatetime},#{comment})
-        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
-            select max(id) from itinerary
+        values(#{tripId},#{itineraryName},#{type},#{startDateTime},#{endDateTime},#{comment})
+        <selectKey resultType="java.lang.Long" keyProperty="itineraryId" order="AFTER">
+            select last_insert_id();
         </selectKey>
     </insert>
 
