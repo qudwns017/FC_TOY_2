@@ -2,7 +2,9 @@ package org.example.kdtbe8_toyproject2.accomodation.service;
 
 import org.example.kdtbe8_toyproject2.accomodation.db.AccomodationEntity;
 import org.example.kdtbe8_toyproject2.accomodation.model.AccomodationDTO;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AccomodationConverter {
 
     public AccomodationDTO toAccomodationDto(AccomodationEntity accomodationEntity){

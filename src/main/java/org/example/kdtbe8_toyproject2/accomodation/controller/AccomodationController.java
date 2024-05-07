@@ -33,7 +33,6 @@ public class AccomodationController {
 
     @GetMapping("/trips/{tripId}/accommodation")
     public List<AccomodationDTO> findByTripId(@PathVariable Long tripId){
-        System.out.println("dfg");
         return accomodationService.findByTripId(tripId);
 
     }
