@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.itinerary.db.mapper.ItineraryMapper">
+    <select id="findAllItinerary" resultType="ItineraryEntity">
+        select * from itinerary
+    </select>
+
+    <select id="findAllMove" resultType="MoveEntity">
+        select * from move
+    </select>
+
+    <select id="findAllStay" resultType="StayEntity">
+        select * from stay
+    </select>
+</mapper>
