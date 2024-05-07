@@ -12,5 +12,9 @@ import java.time.LocalDateTime;
 @Builder
 public class AccomodationEntity {
 
-
+    private Long accomodationId;
+    private Long tripId; // fk
+    private String name;
+    private LocalDateTime checkInDatetime;
+    private LocalDateTime checkOutDatetime;
 }
