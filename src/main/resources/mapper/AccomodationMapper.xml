@@ -5,20 +5,6 @@
 
 <mapper namespace="org.example.accomodation.db.AccomodationMapper">
 
-    <insert id="create" parameterType="db.AccomodationEntity">
-        insert into accommodation( id, trip_id, name, check_in_datetime, check_out_datetime)
-        values (#{accomodationId}, #{tripId}, #{name}, #{checkInDatetime}, #{checkOutDatetime})
-    </insert>
-
-    <select id="findByTripId" parameterType="db.AccomodationEntity" resultType="Long">
-        select * from accommodation
-        where trip_id = #{tripId} and accomodation_id = #{accomodationId}
-    </select>
-
-    <delete id="delete" parameterType="db.AccomodationEntity" >
-        delete from accommodation
-        where trip_id = #{tripId} and accomodation_id = #{accomodationId}
-    </delete>
 
 </mapper>
 
