@@ -9,9 +9,31 @@
         from trip;
     </select>
 
-    <select id="getTripById" resultType="TripEntity">
-        SELECT *
+    <resultMap id="tripResultMap" type="org.example.kdtbe8_toyproject2.trip.model.TripAccommodationDto">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="isOversea" column="is_oversea"/>
+        <result property="comment" column="comment"/>
+        <collection property="accommodation" resultMap="accommodationResultMap"/>
+    </resultMap>
+
+    <resultMap id="accommodationResultMap" type="org.example.kdtbe8_toyproject2.trip.model.AccommodationDto">
+        <id property="accommodationId" column="accommodation_id"/>
+        <result property="accommodationName" column="accommodation_name"/>
+        <result property="checkInDateTime" column="check_in_datetime"/>
+        <result property="checkOutDateTime" column="check_out_datetime"/>
+    </resultMap>
+
+    <select id="getTripById" parameterType="int" resultMap="tripResultMap">
+        SELECT A.*,
+               B.accommodation_id,
+               B.accommodation_name,
+               B.check_in_datetime,
+               B.check_out_datetime
         FROM trip A
-                 JOIN accommodation B on A.id = B.trip_id;
+                 JOIN accommodation B on A.id = B.trip_id
+        WHERE B.trip_id = #{id};
     </select>
 </mapper>
