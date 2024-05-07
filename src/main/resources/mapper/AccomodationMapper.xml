@@ -5,17 +5,17 @@
 
 <mapper namespace="org.example.accomodation.db.AccomodationMapper">
 
-    <insert id="create" parameterType="db.AccomodationEntity">
+    <insert id="create" parameterType="org.example.accomodation.db.AccomodationEntity">
         insert into accommodation( id, trip_id, name, check_in_datetime, check_out_datetime)
         values (#{accomodationId}, #{tripId}, #{name}, #{checkInDatetime}, #{checkOutDatetime})
     </insert>
 
-    <select id="findByTripId" parameterType="db.AccomodationEntity" resultType="Long">
+    <select id="findByTripId" parameterType="org.example.accomodation.db.AccomodationEntity" resultType="org.example.accomodation.db.AccomodationEntity">
         select * from accommodation
         where trip_id = #{tripId} and accomodation_id = #{accomodationId}
     </select>
 
-    <delete id="delete" parameterType="db.AccomodationEntity" >
+    <delete id="delete" parameterType="org.example.accomodation.db.AccomodationEntity" >
         delete from accommodation
         where trip_id = #{tripId} and accomodation_id = #{accomodationId}
     </delete>
