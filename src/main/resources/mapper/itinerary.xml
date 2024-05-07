@@ -4,15 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.example.itinerary.db.mapper.ItineraryMapper">
-    <select id="findAllItinerary" resultType="ItineraryEntity">
+    <select id="findAllItinerary" resultType="org.example.itinerary.db.entity.ItineraryEntity">
         select * from itinerary
     </select>
 
-    <select id="findAllMove" resultType="MoveEntity">
+    <select id="findAllMove" resultType="org.example.itinerary.db.entity.MoveEntity">
         select * from move
     </select>
 
-    <select id="findAllStay" resultType="StayEntity">
+    <select id="findAllStay" resultType="org.example.itinerary.db.entity.StayEntity">
         select * from stay
     </select>
 </mapper>
