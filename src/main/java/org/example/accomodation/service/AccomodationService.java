@@ -8,6 +8,7 @@ import org.example.accomodation.model.AccomodationRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,9 +34,12 @@ public class AccomodationService {
 
 
 
-    public AccomodationDTO findByTripId(Long tripId){
-        var entity =  accomodationMapper.findByTripId(tripId);
-        return accomodationMapper.toAccomodationDto(entity);
+    public List<AccomodationDTO> findByTripId(Long tripId){
+       List<AccomodationEntity> accomodationList = accomodationMapper.findByTripId(tripId);
+       return accomodationList.stream()
+               .map(accomodationConverter::toAccomodationDto)
+               .collect(Collectors.toList());
+
     }
 
 }

@@ -33,9 +33,8 @@ public class AccomodationController {
     }*/
 
     @GetMapping("/trips/{trip_id}/accommodation")
-    public AccomodationDTO findByTripId(@PathVariable Long trip_id){
-        var entity =  accomodationService.findByTripId(trip_id);
-        return entity;
+    public List<AccomodationDTO> findByTripId(@PathVariable Long trip_id){
+       return accomodationService.findByTripId(trip_id);
     }
 }
 
