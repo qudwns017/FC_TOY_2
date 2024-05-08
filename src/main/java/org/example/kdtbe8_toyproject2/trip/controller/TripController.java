@@ -2,9 +2,7 @@ package org.example.kdtbe8_toyproject2.trip.controller;
 
 import java.util.List;
 import org.example.kdtbe8_toyproject2.trip.db.TripMapper;
-import org.example.kdtbe8_toyproject2.trip.model.AccommodationDto;
-import org.example.kdtbe8_toyproject2.trip.model.TripAccommodationDto;
-import org.example.kdtbe8_toyproject2.trip.model.TripDto;
+import org.example.kdtbe8_toyproject2.trip.model.GetTripByIdDto;
 import org.example.kdtbe8_toyproject2.trip.model.TripListDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +26,7 @@ public class TripController {
 
     @GetMapping("/trips/{id}")
     public ResponseEntity<?> getTripById(@PathVariable int id) {
-        TripAccommodationDto trip = mapper.getTripById(id);
+        GetTripByIdDto trip = mapper.getTripById(id);
         return new ResponseEntity<>(trip, HttpStatus.OK);
     }
 }

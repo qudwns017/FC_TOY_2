@@ -9,9 +9,9 @@
         from trip;
     </select>
 
-    <resultMap id="tripResultMap" type="org.example.kdtbe8_toyproject2.trip.model.TripAccommodationDto">
-        <id property="id" column="id"/>
-        <result property="name" column="name"/>
+    <resultMap id="tripResultMap" type="org.example.kdtbe8_toyproject2.trip.model.GetTripByIdDto">
+        <id property="id" column="accommodation_id"/>
+        <result property="name" column="accommodation_name"/>
         <result property="startDate" column="start_date"/>
         <result property="endDate" column="end_date"/>
         <result property="isOversea" column="is_oversea"/>
@@ -28,26 +28,26 @@
     </resultMap>
 
     <resultMap id="itineraryResultMap" type="org.example.kdtbe8_toyproject2.trip.model.ItineraryDto">
-        <id property="itineraryId" column="id"/>
-        <result property="itineraryName" column="name"/>
+        <id property="itineraryId" column="itinerary_id"/>
+        <result property="itineraryName" column="itinerary_name"/>
         <result property="type" column="type"/>
         <result property="startDateTime" column="start_datetime"/>
         <result property="endDateTime" column="end_datetime"/>
-        <result property="comment" column="comment"/>
+        <result property="comment" column="accommodation_comment"/>
     </resultMap>
 
     <select id="getTripById" parameterType="int" resultMap="tripResultMap">
         SELECT A.*,
-               B.accommodation_id,
-               B.accommodation_name,
+               B.id as accommodation_id,
+               B.name as accommodation_name,
                B.check_in_datetime,
                B.check_out_datetime,
-               C.id,
-               C.name,
+               C.id as itinerary_id,
+               C.name as itinerary_name,
                C.type,
                C.start_datetime,
                C.end_datetime,
-               C.comment
+               C.comment as accommodation_comment
         FROM trip A
                  LEFT JOIN accommodation B on A.id = B.trip_id
                  LEFT JOIN itinerary C on A.id = C.trip_id
