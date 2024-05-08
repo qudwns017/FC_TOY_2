@@ -35,9 +35,9 @@ public class ItineraryRequest {
     @NotNull
     private itineraryType type;
     @NotNull
-    private LocalDateTime startDate;
+    private LocalDateTime startDatetime;
     @NotNull
-    private LocalDateTime endDate;
+    private LocalDateTime endDatetime;
     private String transportation;
     private String departurePlace;
     private String arrivalPlace;

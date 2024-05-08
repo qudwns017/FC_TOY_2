@@ -44,8 +44,8 @@ public class ItineraryService {
                 .tripId(tripId)
                 .name(itineraryRequest.getItineraryName())
                 .type(itineraryRequest.getType().getValue())
-                .startDatetime(itineraryRequest.getStartDate())
-                .endDatetime(itineraryRequest.getEndDate())
+                .startDatetime(itineraryRequest.getStartDatetime())
+                .endDatetime(itineraryRequest.getEndDatetime())
                 .comment(itineraryRequest.getComment())
                 .build();
         var saveEntity = itineraryMapper.createItinerary(itineraryEntity);
@@ -87,8 +87,8 @@ public class ItineraryService {
                 .id(id)
                 .name(itineraryRequest.getItineraryName())
                 .type(itineraryRequest.getType().getValue())
-                .startDatetime(itineraryRequest.getStartDate())
-                .endDatetime(itineraryRequest.getEndDate())
+                .startDatetime(itineraryRequest.getStartDatetime())
+                .endDatetime(itineraryRequest.getEndDatetime())
                 .comment(itineraryRequest.getComment())
                 .build()
                 ;
