@@ -7,6 +7,8 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.kdtbe8_toyproject2.accomodation.db.AccommodationEntity;
+import org.example.kdtbe8_toyproject2.itinerary.db.entity.ItineraryEntity;
 
 @Data
 @AllArgsConstructor

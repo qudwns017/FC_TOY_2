@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @ToString
 @Builder
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class AccomodationDTO {
+public class AccommodationDto {
     private Long id;
     private Long tripId;
     private String name;

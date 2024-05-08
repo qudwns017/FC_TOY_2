@@ -1,7 +1,6 @@
 package org.example.kdtbe8_toyproject2.accomodation.db;
 
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ToString
 @Builder
-public class AccomodationEntity {
+public class AccommodationEntity {
     private Long id; //private TripEntity trip;
     private Long tripId; // fk
     private String name;

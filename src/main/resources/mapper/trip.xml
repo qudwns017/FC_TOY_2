@@ -15,14 +15,14 @@
         <collection property="itinerary" resultMap="itineraryResultMap"/>
     </resultMap>
 
-    <resultMap id="accommodationResultMap" type="org.example.kdtbe8_toyproject2.trip.db.AccommodationEntity">
+    <resultMap id="accommodationResultMap" type="org.example.kdtbe8_toyproject2.accomodation.db.AccommodationEntity">
         <id property="accommodationId" column="accommodation_id"/>
         <result property="accommodationName" column="accommodation_name"/>
         <result property="checkInDateTime" column="check_in_datetime"/>
         <result property="checkOutDateTime" column="check_out_datetime"/>
     </resultMap>
 
-    <resultMap id="itineraryResultMap" type="org.example.kdtbe8_toyproject2.trip.db.ItineraryEntity">
+    <resultMap id="itineraryResultMap" type="org.example.kdtbe8_toyproject2.itinerary.db.entity.ItineraryEntity">
         <id property="itineraryId" column="itinerary_id"/>
         <result property="itineraryName" column="itinerary_name"/>
         <result property="type" column="type"/>
