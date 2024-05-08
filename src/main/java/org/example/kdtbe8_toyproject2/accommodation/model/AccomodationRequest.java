@@ -1,4 +1,4 @@
-package org.example.kdtbe8_toyproject2.accomodation.model;
+package org.example.kdtbe8_toyproject2.accommodation.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;

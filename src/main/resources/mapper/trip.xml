@@ -15,7 +15,7 @@
         <collection property="itinerary" resultMap="itineraryResultMap"/>
     </resultMap>
 
-    <resultMap id="accommodationResultMap" type="org.example.kdtbe8_toyproject2.accomodation.db.AccommodationEntity">
+    <resultMap id="accommodationResultMap" type="org.example.kdtbe8_toyproject2.accommodation.db.AccommodationEntity">
         <id property="id" column="id"/>
         <result property="accommodationName" column="accommodation_name"/>
         <result property="checkInDatetime" column="check_in_datetime"/>

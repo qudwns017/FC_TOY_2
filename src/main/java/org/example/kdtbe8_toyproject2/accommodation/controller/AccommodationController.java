@@ -1,11 +1,11 @@
-package org.example.kdtbe8_toyproject2.accomodation.controller;
+package org.example.kdtbe8_toyproject2.accommodation.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.javassist.NotFoundException;
-import org.example.kdtbe8_toyproject2.accomodation.model.AccommodationDto;
-import org.example.kdtbe8_toyproject2.accomodation.model.AccomodationRequest;
-import org.example.kdtbe8_toyproject2.accomodation.service.AccommodationService;
+import org.example.kdtbe8_toyproject2.accommodation.model.AccommodationDto;
+import org.example.kdtbe8_toyproject2.accommodation.model.AccomodationRequest;
+import org.example.kdtbe8_toyproject2.accommodation.service.AccommodationService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -1,7 +1,7 @@
-package org.example.kdtbe8_toyproject2.accomodation.service;
+package org.example.kdtbe8_toyproject2.accommodation.service;
 
-import org.example.kdtbe8_toyproject2.accomodation.db.AccommodationEntity;
-import org.example.kdtbe8_toyproject2.accomodation.model.AccommodationDto;
+import org.example.kdtbe8_toyproject2.accommodation.db.AccommodationEntity;
+import org.example.kdtbe8_toyproject2.accommodation.model.AccommodationDto;
 import org.springframework.stereotype.Component;
 
 @Component
