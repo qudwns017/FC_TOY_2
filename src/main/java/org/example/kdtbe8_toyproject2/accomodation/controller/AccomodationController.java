@@ -2,6 +2,8 @@ package org.example.kdtbe8_toyproject2.accomodation.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.javassist.NotFoundException;
 import org.example.kdtbe8_toyproject2.accomodation.model.AccomodationDTO;
 import org.example.kdtbe8_toyproject2.accomodation.model.AccomodationRequest;
 import org.example.kdtbe8_toyproject2.accomodation.service.AccomodationService;
@@ -17,17 +19,17 @@ public class AccomodationController {
     private final AccomodationService accomodationService;;
 
     @PostMapping("/trips/{tripId}/accommodation")
-    public void create(@PathVariable Long tripId, @Valid @RequestBody AccomodationRequest accomodationRequest){
+    public void create(@PathVariable Long tripId, @Valid @RequestBody AccomodationRequest accomodationRequest) throws Exception {
         accomodationService.create(tripId, accomodationRequest);
     }
 
     @DeleteMapping("/trips/{tripId}/accommodation/{id}")
-    public void delete(@PathVariable Long tripId, @PathVariable Long id){
+    public void delete(@PathVariable Long tripId, @PathVariable Long id) throws Exception {
          accomodationService.delete(tripId, id);
     }
 
     @GetMapping("/trips/{tripId}/accommodation")
-    public List<AccomodationDTO> findByTripId(@PathVariable Long tripId){
+    public List<AccomodationDTO> findByTripId(@PathVariable Long tripId) throws NotFoundException {
         return accomodationService.findByTripId(tripId);
 
     }
