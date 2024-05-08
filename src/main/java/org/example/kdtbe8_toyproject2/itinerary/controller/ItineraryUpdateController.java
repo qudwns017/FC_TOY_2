@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.example.kdtbe8_toyproject2.itinerary.model.request.ItineraryRequest;
 import org.example.kdtbe8_toyproject2.itinerary.service.service.ItineraryService;
 import org.example.kdtbe8_toyproject2.itinerary.service.service.ItineraryUpdateService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,12 +18,11 @@ public class ItineraryUpdateController {
     @PutMapping("/{id}")
     public void update(
             @PathVariable
-            Long tripId,
             Long id,
             @Valid
             @RequestBody
             ItineraryRequest itineraryRequest
             ) {
-        itineraryUpdateService.update(tripId, id, itineraryRequest);
+        itineraryUpdateService.update(id, itineraryRequest);
     }
 }
