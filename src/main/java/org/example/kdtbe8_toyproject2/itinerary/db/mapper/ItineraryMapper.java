@@ -23,4 +23,6 @@ public interface ItineraryMapper {
 
     public ItineraryEntity findItineraryById(Long itineraryId);
 
+    public void updateItinerary(ItineraryEntity itinerary);
+
 }

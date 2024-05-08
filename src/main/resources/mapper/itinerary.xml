@@ -55,4 +55,17 @@
         FROM itinerary
         WHERE id = #{itineraryId}
     </select>
+
+    <update id="updateItinerary" parameterType="org.example.kdtbe8_toyproject2.itinerary.model.dto.ItineraryDto">
+        UPDATE itinerary
+        SET
+
+            name = #{name},
+            type = #{type},
+            start_datetime = #{startDatetime},
+            end_datetime = #{endDatetime},
+            comment = #{comment}
+        WHERE
+            id = #{id}
+    </update>
 </mapper>
