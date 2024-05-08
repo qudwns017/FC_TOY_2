@@ -3,9 +3,11 @@ package org.example.kdtbe8_toyproject2.accomodation.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.example.kdtbe8_toyproject2.accomodation.annotation.CheckTimeCompare;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
@@ -31,4 +33,9 @@ public class AccomodationRequest {
     @NotNull(message = "체크아웃 시간은 빈칸 일 수 없습니다.")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime checkOutDatetime;
+
+    @AssertTrue
+    public boolean isValidPeriod() {
+        return checkOutDatetime.isAfter(checkInDatetime);
+    }
 }
