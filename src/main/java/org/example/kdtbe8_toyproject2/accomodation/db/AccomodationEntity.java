@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @ToString
 @Builder
 public class AccomodationEntity {
-    private Long id;
+    private Long id; //private TripEntity trip;
     private Long tripId; // fk
     private String name;
     private LocalDateTime checkInDatetime;
