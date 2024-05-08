@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.kdtbe8_toyproject2.trip.db.TripMapper">
+    <resultMap id="tripResultMap" type="org.example.kdtbe8_toyproject2.trip.db.GetTripByIdEntity">
+        <id property="tripId" column="trip_id"/>
+        <result property="tripName" column="trip_name"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="isOversea" column="is_oversea"/>
+        <result property="comment" column="trip_comment"/>
+        <collection property="accommodation" resultMap="accommodationResultMap"/>
+        <collection property="itinerary" resultMap="itineraryResultMap"/>
+    </resultMap>
+
+    <resultMap id="accommodationResultMap" type="org.example.kdtbe8_toyproject2.trip.db.AccommodationEntity">
+        <id property="accommodationId" column="accommodation_id"/>
+        <result property="accommodationName" column="accommodation_name"/>
+        <result property="checkInDateTime" column="check_in_datetime"/>
+        <result property="checkOutDateTime" column="check_out_datetime"/>
+    </resultMap>
+
+    <resultMap id="itineraryResultMap" type="org.example.kdtbe8_toyproject2.trip.db.ItineraryEntity">
+        <id property="itineraryId" column="itinerary_id"/>
+        <result property="itineraryName" column="itinerary_name"/>
+        <result property="type" column="type"/>
+        <result property="startDateTime" column="start_datetime"/>
+        <result property="endDateTime" column="end_datetime"/>
+        <result property="comment" column="accommodation_comment"/>
+    </resultMap>
+
+    <select id="getList" resultType="org.example.kdtbe8_toyproject2.trip.db.TripListEntity">
+        select id, name
+        from trip;
+    </select>
+
+    <select id="getById" parameterType="int" resultMap="tripResultMap">
+        SELECT A.id as trip_id,
+               A.name as trip_name,
+               A.start_date,
+               A.end_date,
+               A.is_oversea,
+               A.comment as trip_comment,
+               B.id      as accommodation_id,
+               B.name    as accommodation_name,
+               B.check_in_datetime,
+               B.check_out_datetime,
+               C.id      as itinerary_id,
+               C.name    as itinerary_name,
+               C.type,
+               C.start_datetime,
+               C.end_datetime,
+               C.comment as accommodation_comment
+        FROM trip A
+                 LEFT JOIN accommodation B on A.id = B.trip_id
+                 LEFT JOIN itinerary C on A.id = C.trip_id
+        WHERE A.id = #{id};
+    </select>
+
+    <insert id="create" parameterType="org.example.kdtbe8_toyproject2.trip.db.TripEntity" useGeneratedKeys="true" keyProperty="tripId">
+        insert into trip(name, start_date, end_date, is_oversea, comment)
+        values (#{tripName}, #{startDate}, #{endDate}, #{isOversea}, #{comment})
+    </insert>
+
+    <update id="update" parameterType="org.example.kdtbe8_toyproject2.trip.db.TripEntity">
+        update trip
+        set
+            name = #{tripName},
+            start_date = #{startDate},
+            end_date = #{endDate},
+            is_oversea = #{isOversea},
+            comment = #{comment}
+        where id = #{tripId}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        delete from trip where id = #{tripId}
+    </delete>
+</mapper>
