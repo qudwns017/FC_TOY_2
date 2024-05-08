@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TripAccommodationDto {
+public class GetTripByIdDto {
     private Long id;
     private String name;
     private LocalDateTime startDate;
