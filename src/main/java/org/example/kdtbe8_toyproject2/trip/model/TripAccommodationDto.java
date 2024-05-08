@@ -17,4 +17,5 @@ public class TripAccommodationDto {
     private Boolean isOversea;
     private String comment;
     private List<AccommodationDto> accommodation;
+    private List<ItineraryDto> itinerary;
 }

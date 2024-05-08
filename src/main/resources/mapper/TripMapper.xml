@@ -17,6 +17,7 @@
         <result property="isOversea" column="is_oversea"/>
         <result property="comment" column="comment"/>
         <collection property="accommodation" resultMap="accommodationResultMap"/>
+        <collection property="itinerary" resultMap="itineraryResultMap"/>
     </resultMap>
 
     <resultMap id="accommodationResultMap" type="org.example.kdtbe8_toyproject2.trip.model.AccommodationDto">
@@ -26,14 +27,30 @@
         <result property="checkOutDateTime" column="check_out_datetime"/>
     </resultMap>
 
+    <resultMap id="itineraryResultMap" type="org.example.kdtbe8_toyproject2.trip.model.ItineraryDto">
+        <id property="itineraryId" column="id"/>
+        <result property="itineraryName" column="name"/>
+        <result property="type" column="type"/>
+        <result property="startDateTime" column="start_datetime"/>
+        <result property="endDateTime" column="end_datetime"/>
+        <result property="comment" column="comment"/>
+    </resultMap>
+
     <select id="getTripById" parameterType="int" resultMap="tripResultMap">
         SELECT A.*,
                B.accommodation_id,
                B.accommodation_name,
                B.check_in_datetime,
-               B.check_out_datetime
+               B.check_out_datetime,
+               C.id,
+               C.name,
+               C.type,
+               C.start_datetime,
+               C.end_datetime,
+               C.comment
         FROM trip A
-                 JOIN accommodation B on A.id = B.trip_id
-        WHERE B.trip_id = #{id};
+                 LEFT JOIN accommodation B on A.id = B.trip_id
+                 LEFT JOIN itinerary C on A.id = C.trip_id
+        WHERE A.id = #{id};
     </select>
 </mapper>
