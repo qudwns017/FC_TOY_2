@@ -38,4 +38,15 @@ public class ItineraryController {
     ) {
         itineraryService.delete(itineraryId);
     }
+
+    @PutMapping("/{id}")
+    public void update(
+            @PathVariable
+            Long id,
+            @Valid
+            @RequestBody
+            ItineraryRequest itineraryRequest
+    ) {
+        itineraryService.update(id, itineraryRequest);
+    }
 }

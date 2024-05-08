@@ -25,7 +25,7 @@ public class ItineraryUpdateService {
         var itineraryEntity = ItineraryEntity.builder()
                 .id(id)
                 .name(itineraryRequest.getItineraryName())
-                .type(itineraryRequest.getType())
+                .type(itineraryRequest.getType().getValue())
                 .startDatetime(itineraryRequest.getStartDate())
                 .endDatetime(itineraryRequest.getEndDate())
                 .comment(itineraryRequest.getComment())

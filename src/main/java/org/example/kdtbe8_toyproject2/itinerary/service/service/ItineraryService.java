@@ -79,4 +79,40 @@ public class ItineraryService {
             itineraryMapper.deleteStay(itineraryId);
         }
     }
+    public void update(
+            Long id,
+            ItineraryRequest itineraryRequest
+    ) {
+        var itineraryEntity = ItineraryEntity.builder()
+                .id(id)
+                .name(itineraryRequest.getItineraryName())
+                .type(itineraryRequest.getType().getValue())
+                .startDatetime(itineraryRequest.getStartDate())
+                .endDatetime(itineraryRequest.getEndDate())
+                .comment(itineraryRequest.getComment())
+                .build()
+                ;
+        itineraryMapper.updateItinerary(itineraryEntity);
+        if(itineraryRequest.getType().equals(0)) {
+            var moveEntity = MoveEntity.builder()
+                    .itineraryId(id)
+                    .transportation(itineraryRequest.getTransportation())
+                    .departurePlace(itineraryRequest.getDeparturePlace())
+                    .arrivalPlace(itineraryRequest.getArrivalPlace())
+                    .build()
+                    ;
+            itineraryMapper.deleteMove(id);
+            itineraryMapper.deleteStay(id);
+            itineraryMapper.createMove(moveEntity);
+        } else {
+            var stayEntity = StayEntity.builder()
+                    .itineraryId(id)
+                    .place(itineraryRequest.getPlace())
+                    .build()
+                    ;
+            itineraryMapper.deleteStay(id);
+            itineraryMapper.deleteMove(id);
+            itineraryMapper.createStay(stayEntity);
+        }
+    }
 }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class ItineraryUpdateController {
     private final ItineraryUpdateService itineraryUpdateService;
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/void")
     public void update(
             @PathVariable
             Long id,
