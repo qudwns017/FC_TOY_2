@@ -1,32 +1,66 @@
 package org.example.kdtbe8_toyproject2.trip.controller;
 
+import jakarta.validation.Valid;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.kdtbe8_toyproject2.trip.db.TripMapper;
-import org.example.kdtbe8_toyproject2.trip.model.GetTripByIdDto;
-import org.example.kdtbe8_toyproject2.trip.model.TripListDto;
+import org.example.kdtbe8_toyproject2.trip.db.GetTripByIdEntity;
+import org.example.kdtbe8_toyproject2.trip.db.TripListEntity;
+import org.example.kdtbe8_toyproject2.trip.model.TripRequest;
+import org.example.kdtbe8_toyproject2.trip.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+@Slf4j
+@RequestMapping("/api/trips")
+@RequiredArgsConstructor
 
 @RestController
-@RequestMapping("/api")
 public class TripController {
     @Autowired
     private TripMapper mapper;
+    private final TripService tripService;
 
-    @GetMapping("/trips")
+    @GetMapping("")
     public ResponseEntity<?> getTripList() {
-        List<TripListDto> list = mapper.getTripList();
+        List<TripListEntity> list = mapper.getList();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @GetMapping("/trips/{id}")
-    public ResponseEntity<?> getTripById(@PathVariable int id) {
-        GetTripByIdDto trip = mapper.getTripById(id);
+    @GetMapping("/{tripId}")
+    public ResponseEntity<?> getTripById(@PathVariable int tripId) {
+        GetTripByIdEntity trip = mapper.getById(tripId);
         return new ResponseEntity<>(trip, HttpStatus.OK);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Object> create(
+            @Valid @RequestBody TripRequest tripRequest) {
+        var entity = tripService.create(tripRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(entity);
+    }
+
+    @PutMapping("/{tripId}")
+    public ResponseEntity<Object> update(@PathVariable Long tripId, @Valid @RequestBody TripRequest tripRequest) {
+        int result = tripService.update(tripId, tripRequest);
+
+        if (result == 0)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    }
+
+    @DeleteMapping("/{tripId}")
+    public ResponseEntity<Object> delete(@PathVariable Long tripId) {
+        int result = tripService.delete(tripId);
+
+        // TODO : 삭제를 하게 되면 이와 관련된 다른 테이블 데이터도 같이 삭제되게 해야
+        if (result == 0)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

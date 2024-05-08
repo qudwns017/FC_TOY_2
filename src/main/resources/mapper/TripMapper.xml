@@ -4,53 +4,5 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.example.kdtbe8_toyproject2.trip.db.TripMapper">
-    <select id="getTripList" resultType="org.example.kdtbe8_toyproject2.trip.model.TripListDto">
-        select id, name
-        from trip;
-    </select>
 
-    <resultMap id="tripResultMap" type="org.example.kdtbe8_toyproject2.trip.model.GetTripByIdDto">
-        <id property="id" column="accommodation_id"/>
-        <result property="name" column="accommodation_name"/>
-        <result property="startDate" column="start_date"/>
-        <result property="endDate" column="end_date"/>
-        <result property="isOversea" column="is_oversea"/>
-        <result property="comment" column="comment"/>
-        <collection property="accommodation" resultMap="accommodationResultMap"/>
-        <collection property="itinerary" resultMap="itineraryResultMap"/>
-    </resultMap>
-
-    <resultMap id="accommodationResultMap" type="org.example.kdtbe8_toyproject2.trip.model.AccommodationDto">
-        <id property="accommodationId" column="accommodation_id"/>
-        <result property="accommodationName" column="accommodation_name"/>
-        <result property="checkInDateTime" column="check_in_datetime"/>
-        <result property="checkOutDateTime" column="check_out_datetime"/>
-    </resultMap>
-
-    <resultMap id="itineraryResultMap" type="org.example.kdtbe8_toyproject2.trip.model.ItineraryDto">
-        <id property="itineraryId" column="itinerary_id"/>
-        <result property="itineraryName" column="itinerary_name"/>
-        <result property="type" column="type"/>
-        <result property="startDateTime" column="start_datetime"/>
-        <result property="endDateTime" column="end_datetime"/>
-        <result property="comment" column="accommodation_comment"/>
-    </resultMap>
-
-    <select id="getTripById" parameterType="int" resultMap="tripResultMap">
-        SELECT A.*,
-               B.id as accommodation_id,
-               B.name as accommodation_name,
-               B.check_in_datetime,
-               B.check_out_datetime,
-               C.id as itinerary_id,
-               C.name as itinerary_name,
-               C.type,
-               C.start_datetime,
-               C.end_datetime,
-               C.comment as accommodation_comment
-        FROM trip A
-                 LEFT JOIN accommodation B on A.id = B.trip_id
-                 LEFT JOIN itinerary C on A.id = C.trip_id
-        WHERE A.id = #{id};
-    </select>
 </mapper>
