@@ -8,6 +8,7 @@ import org.example.kdtbe8_toyproject2.itinerary.db.mapper.ItineraryMapper;
 import org.example.kdtbe8_toyproject2.itinerary.model.request.ItineraryRequest;
 import org.example.kdtbe8_toyproject2.itinerary.model.dto.ItineraryDto;
 import org.example.kdtbe8_toyproject2.itinerary.service.converter.ItineraryConverter;
+import org.example.kdtbe8_toyproject2.itineraryType;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,14 +43,14 @@ public class ItineraryService {
         var itineraryEntity = ItineraryEntity.builder()
                 .tripId(tripId)
                 .name(itineraryRequest.getItineraryName())
-                .type(itineraryRequest.getType())
+                .type(itineraryRequest.getType().getValue())
                 .startDatetime(itineraryRequest.getStartDate())
                 .endDatetime(itineraryRequest.getEndDate())
                 .comment(itineraryRequest.getComment())
                 .build();
         var saveEntity = itineraryMapper.createItinerary(itineraryEntity);
 
-        if(itineraryRequest.getType() == 0){
+        if(itineraryRequest.getType().getValue() == 0){
             var moveEntity = MoveEntity.builder()
                     .itineraryId(itineraryEntity.getId())
                     .transportation(itineraryRequest.getTransportation())

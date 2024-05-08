@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.example.kdtbe8_toyproject2.Conditional;
+import org.example.kdtbe8_toyproject2.itineraryType;
 
 import java.time.LocalDateTime;
 
@@ -15,11 +17,23 @@ import java.time.LocalDateTime;
 @Builder
 @ToString
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
+@Conditional.List(
+        {
+                @Conditional(
+                        selected = "type",
+                        values = "MOVE",
+                        required = {"transportation", "departurePlace", "arrivalPlace"}),
+                @Conditional(
+                        selected = "type",
+                        values = "STAY",
+                        required = {"place"})
+        }
+)
 public class ItineraryRequest {
     @NotBlank
     private String itineraryName;
     @NotNull
-    private Integer type;
+    private itineraryType type;
     @NotNull
     private LocalDateTime startDate;
     @NotNull

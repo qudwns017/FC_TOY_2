@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.kdtbe8_toyproject2.itinerary.model.request.ItineraryRequest;
 import org.example.kdtbe8_toyproject2.itinerary.model.dto.ItineraryDto;
 import org.example.kdtbe8_toyproject2.itinerary.service.service.ItineraryService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class ItineraryController {
     @PostMapping("")
     public void create(
             @PathVariable Long tripId,
-            @Valid
+            @Validated
             @RequestBody
             ItineraryRequest itineraryRequest
     ){
