@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.example.kdtbe8_toyproject2.itinerary.model.request.ItineraryRequest;
 import org.example.kdtbe8_toyproject2.itinerary.model.dto.ItineraryDto;
 import org.example.kdtbe8_toyproject2.itinerary.service.service.ItineraryService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,36 +19,49 @@ public class ItineraryController {
     private final ItineraryService itineraryService;
 
     @GetMapping("/all")
-    public List<ItineraryDto> findByTripId(
+    public ResponseEntity<?> findByTripId(
             @PathVariable Long tripId
     ) {
-        return itineraryService.findByTripId(tripId);
+        return ResponseEntity.status(HttpStatus.OK).body(itineraryService.findByTripId(tripId));
     }
+
     @PostMapping("")
-    public void create(
+    public ResponseEntity<?> create(
             @PathVariable Long tripId,
             @Validated
             @RequestBody
             ItineraryRequest itineraryRequest
     ){
-        itineraryService.create(itineraryRequest,tripId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(itineraryService.create(itineraryRequest,tripId));
     }
 
     @DeleteMapping("/{itineraryId}")
-    public void delete(
+    public ResponseEntity<?> delete(
             @PathVariable Long itineraryId
     ) {
-        itineraryService.delete(itineraryId);
+        int result = itineraryService.delete(itineraryId);
+
+        if (result == 0) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
     @PutMapping("/{id}")
-    public void update(
+    public ResponseEntity<?> update(
             @PathVariable
             Long id,
             @Valid
             @RequestBody
             ItineraryRequest itineraryRequest
     ) {
-        itineraryService.update(id, itineraryRequest);
+        int result = itineraryService.update(id, itineraryRequest);
+
+        if (result == 0) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 }

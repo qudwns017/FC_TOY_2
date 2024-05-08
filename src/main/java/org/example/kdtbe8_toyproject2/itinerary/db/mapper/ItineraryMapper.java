@@ -17,12 +17,12 @@ public interface ItineraryMapper {
     public int createMove(MoveEntity move);
     public int createStay(StayEntity stay);
 
-    public void deleteItinerary(Long itineraryId);
-    public void deleteMove(Long itineraryId);
-    public void deleteStay(Long itineraryId);
+    public int deleteItinerary(Long itineraryId);
+    public int deleteMove(Long itineraryId);
+    public int deleteStay(Long itineraryId);
 
     public ItineraryEntity findItineraryById(Long itineraryId);
 
-    public void updateItinerary(ItineraryEntity itinerary);
+    public int updateItinerary(ItineraryEntity itinerary);
 
 }
