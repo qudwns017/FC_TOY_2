@@ -16,7 +16,7 @@
     </resultMap>
 
     <resultMap id="accommodationResultMap" type="org.example.kdtbe8_toyproject2.accommodation.db.AccommodationEntity">
-        <id property="id" column="id"/>
+        <id property="id" column="accommodation_id"/>
         <result property="accommodationName" column="accommodation_name"/>
         <result property="checkInDatetime" column="check_in_datetime"/>
         <result property="checkOutDatetime" column="check_out_datetime"/>
