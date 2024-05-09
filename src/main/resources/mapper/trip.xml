@@ -16,14 +16,16 @@
     </resultMap>
 
     <resultMap id="accommodationResultMap" type="org.example.kdtbe8_toyproject2.accommodation.db.AccommodationEntity">
-        <id property="id" column="id"/>
-        <result property="accommodationName" column="accommodation_name"/>
+        <id property="id" column="accommodation_id"/>
+        <result property="tripId" column="trip_id"/>
+        <result property="name" column="accommodation_name"/>
         <result property="checkInDatetime" column="check_in_datetime"/>
         <result property="checkOutDatetime" column="check_out_datetime"/>
     </resultMap>
 
     <resultMap id="itineraryResultMap" type="org.example.kdtbe8_toyproject2.itinerary.db.ItineraryEntity">
         <id property="id" column="itinerary_id"/>
+        <result property="tripId" column="trip_id"/>
         <result property="name" column="itinerary_name"/>
         <result property="type" column="type"/>
         <result property="startDatetime" column="start_datetime"/>
@@ -44,10 +46,12 @@
                A.is_oversea,
                A.comment as trip_comment,
                B.id      as accommodation_id,
+               B.trip_id,
                B.name    as accommodation_name,
                B.check_in_datetime,
                B.check_out_datetime,
                C.id      as itinerary_id,
+               C.trip_id,
                C.name    as itinerary_name,
                C.type,
                C.start_datetime,
