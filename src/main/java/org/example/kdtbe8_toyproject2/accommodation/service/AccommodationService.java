@@ -37,9 +37,15 @@ public class AccommodationService {
     }
 
     public void delete(Long id) {
+        var accommodationEntity = accommodationMapper.findByTripId(id);
         if (accommodationMapper.delete(id) == 0) {
             throw AccommodationError.TRIP_NOT_EXIST.defaultException();
         }
+
+        if(accommodationEntity == null || accommodationEntity.isEmpty()){
+           throw AccommodationError.ACCOMMODATION_NOT_EXIST.defaultException();
+       }
+
     }
 
     public List<AccommodationDto> findByTripId(Long tripId){
