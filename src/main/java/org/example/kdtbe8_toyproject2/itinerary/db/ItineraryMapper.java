@@ -1,9 +1,6 @@
-package org.example.kdtbe8_toyproject2.itinerary.db.mapper;
+package org.example.kdtbe8_toyproject2.itinerary.db;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.example.kdtbe8_toyproject2.itinerary.db.entity.ItineraryEntity;
-import org.example.kdtbe8_toyproject2.itinerary.db.entity.MoveEntity;
-import org.example.kdtbe8_toyproject2.itinerary.db.entity.StayEntity;
 
 import java.util.List;
 

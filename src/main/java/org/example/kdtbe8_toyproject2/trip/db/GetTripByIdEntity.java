@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.kdtbe8_toyproject2.accommodation.db.AccommodationEntity;
-import org.example.kdtbe8_toyproject2.itinerary.db.entity.ItineraryEntity;
+import org.example.kdtbe8_toyproject2.itinerary.db.ItineraryEntity;
 
 @Data
 @AllArgsConstructor

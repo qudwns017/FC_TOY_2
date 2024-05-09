@@ -1,4 +1,4 @@
-package org.example.kdtbe8_toyproject2.itinerary.model.request;
+package org.example.kdtbe8_toyproject2.itinerary.model;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;

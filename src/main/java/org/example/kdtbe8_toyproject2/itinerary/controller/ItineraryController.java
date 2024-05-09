@@ -2,15 +2,12 @@ package org.example.kdtbe8_toyproject2.itinerary.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.kdtbe8_toyproject2.itinerary.model.request.ItineraryRequest;
-import org.example.kdtbe8_toyproject2.itinerary.model.dto.ItineraryDto;
-import org.example.kdtbe8_toyproject2.itinerary.service.service.ItineraryService;
+import org.example.kdtbe8_toyproject2.itinerary.model.ItineraryRequest;
+import org.example.kdtbe8_toyproject2.itinerary.service.ItineraryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/trips/{tripId}/itineraries")

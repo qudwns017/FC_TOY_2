@@ -3,6 +3,7 @@ package org.example.kdtbe8_toyproject2.accommodation.model;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
+import org.example.kdtbe8_toyproject2.accommodation.db.AccommodationEntity;
 
 import java.time.LocalDateTime;
 
@@ -19,4 +20,16 @@ public class AccommodationDto {
     private String name;
     private LocalDateTime checkInDatetime;
     private LocalDateTime checkOutDatetime;
+
+    public static AccommodationDto toAccommodationDto(AccommodationEntity accommodationEntity){
+        return AccommodationDto.builder()
+                .tripId(accommodationEntity.getTripId())
+                .id(accommodationEntity.getId())
+                .tripId(accommodationEntity.getTripId())
+                .name(accommodationEntity.getName())
+                .checkInDatetime(accommodationEntity.getCheckInDatetime())
+                .checkOutDatetime(accommodationEntity.getCheckOutDatetime())
+                .build();
+    }
 }
+
