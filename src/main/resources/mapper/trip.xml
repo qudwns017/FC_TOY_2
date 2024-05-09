@@ -17,7 +17,7 @@
 
     <resultMap id="accommodationResultMap" type="org.example.kdtbe8_toyproject2.accommodation.db.AccommodationEntity">
         <id property="id" column="accommodation_id"/>
-        <result property="tripId" column="trip_id"/>
+        <result property="tripId" column="accommodation_trip_id"/>
         <result property="name" column="accommodation_name"/>
         <result property="checkInDatetime" column="check_in_datetime"/>
         <result property="checkOutDatetime" column="check_out_datetime"/>
@@ -25,12 +25,12 @@
 
     <resultMap id="itineraryResultMap" type="org.example.kdtbe8_toyproject2.itinerary.db.ItineraryEntity">
         <id property="id" column="itinerary_id"/>
-        <result property="tripId" column="trip_id"/>
+        <result property="tripId" column="itinerary_trip_id"/>
         <result property="name" column="itinerary_name"/>
         <result property="type" column="type"/>
         <result property="startDatetime" column="start_datetime"/>
         <result property="endDatetime" column="end_datetime"/>
-        <result property="comment" column="accommodation_comment"/>
+        <result property="comment" column="itinerary_comment"/>
     </resultMap>
 
     <select id="getList" resultType="org.example.kdtbe8_toyproject2.trip.db.TripListEntity">
@@ -46,17 +46,17 @@
                A.is_oversea,
                A.comment as trip_comment,
                B.id      as accommodation_id,
-               B.trip_id,
+               B.trip_id as accommodation_trip_id,
                B.name    as accommodation_name,
                B.check_in_datetime,
                B.check_out_datetime,
                C.id      as itinerary_id,
-               C.trip_id,
+               C.trip_id as itinerary_trip_id,
                C.name    as itinerary_name,
                C.type,
                C.start_datetime,
                C.end_datetime,
-               C.comment as accommodation_comment
+               C.comment as itinerary_comment
         FROM trip A
                  LEFT JOIN accommodation B on A.id = B.trip_id
                  LEFT JOIN itinerary C on A.id = C.trip_id
