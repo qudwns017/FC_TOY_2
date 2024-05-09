@@ -52,7 +52,7 @@ public class ItineraryController {
             Long tripId,
             @PathVariable
             Long itineraryId,
-            @Valid
+            @Validated
             @RequestBody
             ItineraryRequest itineraryRequest
     ) {

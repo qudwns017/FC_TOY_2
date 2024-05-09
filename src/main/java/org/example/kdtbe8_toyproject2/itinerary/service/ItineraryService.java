@@ -22,13 +22,11 @@ public class ItineraryService {
     private final TripService tripService;
 
     public List<ItineraryDto> findByTripId(Long tripId) {
-        List<ItineraryEntity> itineraries;
-        try {
-            itineraries = itineraryMapper.findAllItineraries(tripId);
+        if(tripService.findTripId(tripId) == null){
+            throw ItineraryError.TRIP_NOT_EXIST.defaultException();
         }
-        catch (Exception e){
-            throw ItineraryError.TRIP_NOT_EXIST.defaultException(e);
-        }
+
+        List<ItineraryEntity> itineraries = itineraryMapper.findAllItineraries(tripId);
 
         return itineraries.stream()
                 .map(this::mapToItineraryDto)
@@ -146,6 +144,8 @@ public class ItineraryService {
             throw ItineraryError.TRIP_NOT_EXIST.defaultException();
         }
 
-        itineraryMapper.deleteItinerary(itineraryId);
+        if(itineraryMapper.deleteItinerary(itineraryId) == 0){
+            throw ItineraryError.ITINERARY_NOT_EXIST.defaultException();
+        };
     }
 }
