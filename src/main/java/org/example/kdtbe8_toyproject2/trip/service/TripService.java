@@ -1,8 +1,12 @@
 package org.example.kdtbe8_toyproject2.trip.service;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.example.kdtbe8_toyproject2.trip.db.GetTripByIdEntity;
 import org.example.kdtbe8_toyproject2.trip.db.TripEntity;
+import org.example.kdtbe8_toyproject2.trip.db.TripListEntity;
 import org.example.kdtbe8_toyproject2.trip.db.TripMapper;
+import org.example.kdtbe8_toyproject2.trip.exception.TripError;
 import org.example.kdtbe8_toyproject2.trip.model.TripDto;
 import org.example.kdtbe8_toyproject2.trip.model.TripRequest;
 import org.springframework.stereotype.Service;
@@ -11,6 +15,22 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TripService {
     private final TripMapper tripMapper;
+
+    public List<TripListEntity> findAll() {
+        try {
+            return tripMapper.getList();
+        } catch (Exception e) {
+            throw TripError.TRIP_NOT_FOUND.defaultException(e);
+        }
+    }
+
+    public GetTripByIdEntity findById(Long tripId) {
+        GetTripByIdEntity entity = tripMapper.getById(tripId);
+        if (entity == null) {
+            throw TripError.TRIP_NOT_FOUND.defaultException();
+        }
+        return entity;
+    }
 
     public TripDto create(TripRequest tripRequest) {
         var entity = TripEntity.builder()
