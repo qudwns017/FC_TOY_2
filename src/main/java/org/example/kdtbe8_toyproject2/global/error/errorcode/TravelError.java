@@ -12,7 +12,8 @@ public enum TravelError implements ErrorCode {
     TRIP_NOT_FOUND("여행정보를 찾을 수 없습니다.", HttpStatus.NOT_FOUND),
     ITINERARY_NOT_EXIST("해당 여정정보가 없습니다.", HttpStatus.NOT_FOUND),
     UPDATE_FAILED("업데이트 실패하였습니다.", HttpStatus.INTERNAL_SERVER_ERROR),
-    ACCOMMODATION_NOT_EXIST("해당 숙박정보가 없습니다.", HttpStatus.NOT_FOUND);
+    ACCOMMODATION_NOT_EXIST("해당 숙박정보가 없습니다.", HttpStatus.NOT_FOUND),
+    TIME_ERROR("시간이 올바르지 않습니다.", HttpStatus.NOT_FOUND);
 
     private final String message;
     private final HttpStatus status;
