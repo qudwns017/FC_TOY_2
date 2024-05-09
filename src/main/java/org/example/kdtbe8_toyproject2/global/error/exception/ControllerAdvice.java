@@ -2,7 +2,7 @@ package org.example.kdtbe8_toyproject2.global.error.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.example.kdtbe8_toyproject2.global.error.errorcode.ApiResponseError;
+import org.example.kdtbe8_toyproject2.global.util.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -29,8 +29,8 @@ public class ControllerAdvice {
     }
 
     @ExceptionHandler(CustomException.class)
-    public ResponseEntity<ApiResponseError> handleMemberException(CustomException exception) {
-        ApiResponseError response = ApiResponseError.of(exception);
+    public ResponseEntity<ApiResponse> handleMemberException(CustomException exception) {
+        ApiResponse response = ApiResponse.of(exception);
         HttpStatus httpStatus = exception
                 .getErrorCode()
                 .defaultHttpStatus();

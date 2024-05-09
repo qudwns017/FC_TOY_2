@@ -1,8 +1,10 @@
-package org.example.kdtbe8_toyproject2.global.error.errorcode;
+package org.example.kdtbe8_toyproject2.global.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Builder;
+import org.example.kdtbe8_toyproject2.global.error.errorcode.ApiSimpleError;
+import org.example.kdtbe8_toyproject2.global.error.errorcode.ErrorCode;
 import org.example.kdtbe8_toyproject2.global.error.exception.CustomException;
 
 import java.time.Instant;
@@ -15,23 +17,25 @@ import java.util.List;
  * @param name 오류 이름
  * @param message 오류 메시지
  * @param cause
+ * @param data
  * @param timestamp 발생 시각
  */
 @Builder
-public record ApiResponseError(
-        String code,
+public record ApiResponse<T>(
+        @JsonInclude(Include.NON_EMPTY) String code,
         Integer status,
         String name,
-        String message,
+        @JsonInclude(Include.NON_EMPTY) String message,
+        @JsonInclude(Include.NON_EMPTY) T data,
         @JsonInclude(Include.NON_EMPTY) List<ApiSimpleError> cause,
         Instant timestamp
 ) {
-    public static ApiResponseError of(CustomException exception) {
+    public static ApiResponse of(CustomException exception) {
         ErrorCode errorCode = exception.getErrorCode();
         String errorName = exception.getClass().getName();
         errorName = errorName.substring(errorName.lastIndexOf('.') + 1);
 
-        return ApiResponseError.builder()
+        return ApiResponse.builder()
                 .code(errorCode.name())
                 .status(errorCode.defaultHttpStatus().value())
                 .name(errorName)
@@ -40,21 +44,13 @@ public record ApiResponseError(
                 .build();
     }
 
-    public ApiResponseError {
-        if (code == null) {
-            code = "API_ERROR";
-        }
-
+    public ApiResponse {
         if (status == null) {
             status = 500;
         }
 
         if (name == null) {
             name = "ApiError";
-        }
-
-        if (message == null || message.isBlank()) {
-            message = "API 오류";
         }
 
         if (timestamp == null) {

@@ -1,5 +1,6 @@
 package org.example.kdtbe8_toyproject2.itinerary.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
@@ -25,10 +26,10 @@ public class ItineraryDto {
     private LocalDateTime startDatetime;
     private LocalDateTime endDatetime;
     private String comment;
-    private String transportation;
-    private String departurePlace;
-    private String arrivalPlace;
-    private String place;
+    @JsonInclude(JsonInclude.Include.NON_EMPTY) private String transportation;
+    @JsonInclude(JsonInclude.Include.NON_EMPTY) private String departurePlace;
+    @JsonInclude(JsonInclude.Include.NON_EMPTY) private String arrivalPlace;
+    @JsonInclude(JsonInclude.Include.NON_EMPTY) private String place;
 
     public static ItineraryDto toDto(ItineraryEntity itineraryEntity, MoveEntity moveEntity, StayEntity stayEntity) {
         return ItineraryDto.builder()

@@ -87,12 +87,14 @@ public class ItineraryService {
     }
 
     @Transactional
-    public void update(
+    public ItineraryDto update(
+            Long tripId,
             Long id,
             ItineraryRequest itineraryRequest
     ) {
         var itineraryEntity = ItineraryEntity.builder()
                 .id(id)
+                .tripId(tripId)
                 .name(itineraryRequest.getItineraryName())
                 .type(itineraryRequest.getType().getValue())
                 .startDatetime(itineraryRequest.getStartDatetime())
@@ -114,9 +116,11 @@ public class ItineraryService {
             throw ItineraryError.UPDATE_FAILED.defaultException();
         }
 
+        MoveEntity moveEntity = null;
+        StayEntity stayEntity = null;
 
         if(itineraryRequest.getType().getValue() == 0) {
-            var moveEntity = MoveEntity.builder()
+            moveEntity = MoveEntity.builder()
                     .itineraryId(id)
                     .transportation(itineraryRequest.getTransportation())
                     .departurePlace(itineraryRequest.getDeparturePlace())
@@ -126,13 +130,14 @@ public class ItineraryService {
             itineraryMapper.createMove(moveEntity);
 
         } else {
-            var stayEntity = StayEntity.builder()
+            stayEntity = StayEntity.builder()
                     .itineraryId(id)
                     .place(itineraryRequest.getPlace())
                     .build()
                     ;
             itineraryMapper.createStay(stayEntity);
         }
+        return ItineraryDto.toDto(itineraryEntity, moveEntity, stayEntity);
     }
 
     @Transactional
