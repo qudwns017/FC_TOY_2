@@ -1,17 +1,16 @@
-package org.example.kdtbe8_toyproject2;
+package org.example.kdtbe8_toyproject2.global.error.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.example.kdtbe8_toyproject2.global.error.errorcode.ApiResponseError;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Stack;
 
 @RestControllerAdvice
 @Slf4j
@@ -29,11 +28,13 @@ public class ControllerAdvice {
         return ResponseEntity.badRequest().body(errorDefaultMessages);
     }
 
-    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
-    public ResponseEntity<ApiResponseError> handleValidationExceptions(SQLIntegrityConstraintViolationException e, HttpServletRequest request) {
-        RuntimeException error = new RuntimeException(e);
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<ApiResponseError> handleMemberException(CustomException exception) {
+        ApiResponseError response = ApiResponseError.of(exception);
+        HttpStatus httpStatus = exception
+                .getErrorCode()
+                .defaultHttpStatus();
 
-        log.error("failure check request validation, uri: {}, objectName: {}, {}", request.getRequestURI());
-        return ResponseEntity.badRequest().body(ApiResponseError.of(error));
+        return new ResponseEntity<>(response, httpStatus);
     }
 }

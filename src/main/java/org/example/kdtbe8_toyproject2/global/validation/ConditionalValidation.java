@@ -1,4 +1,4 @@
-package org.example.kdtbe8_toyproject2;
+package org.example.kdtbe8_toyproject2.global.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

@@ -1,6 +1,7 @@
 package org.example.kdtbe8_toyproject2.itinerary.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.kdtbe8_toyproject2.global.error.errorcode.ItineraryError;
 import org.example.kdtbe8_toyproject2.itinerary.db.ItineraryEntity;
 import org.example.kdtbe8_toyproject2.itinerary.db.MoveEntity;
 import org.example.kdtbe8_toyproject2.itinerary.db.StayEntity;
@@ -47,7 +48,12 @@ public class ItineraryService {
                 .endDatetime(itineraryRequest.getEndDatetime())
                 .comment(itineraryRequest.getComment())
                 .build();
-        var saveEntity = itineraryMapper.createItinerary(itineraryEntity);
+        try {
+            itineraryMapper.createItinerary(itineraryEntity);
+        }
+        catch (Exception e){
+            throw ItineraryError.USERNAME_ALREADY_EXISTS.defaultException(e);
+        }
 
         MoveEntity moveEntity = null;
         StayEntity stayEntity = null;
