@@ -18,30 +18,24 @@ import java.util.List;
 @RequestMapping("/api/trips/{tripId}/accommodation")
 @RequiredArgsConstructor
 public class AccommodationController {
+
     private final AccommodationService accommodationService;
 
-    @GetMapping
-    public ResponseEntity<?> findByTripId(
-            @PathVariable Long tripId
-    ){
-        List<AccommodationDto> accommodationDtoList = accommodationService.findByTripId(tripId);
-        return new ResponseEntity<>(accommodationDtoList, HttpStatus.OK);
+    @PostMapping("")
+    public ResponseEntity<?> create(@PathVariable Long tripId, @Valid @RequestBody AccomodationRequest accomodationRequest){
+        AccommodationDto accommodationEntity = accommodationService.create(tripId, accomodationRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(accommodationEntity);
     }
 
-    @PostMapping
-    public ResponseEntity<?> create(
-            @PathVariable Long tripId,
-            @Valid
-            @RequestBody AccomodationRequest accomodationRequest
-    ){
-        return ResponseEntity.status(HttpStatus.CREATED).body(accommodationService.create(tripId, accomodationRequest));
-    }
-
-    @DeleteMapping("/{accommodationId}")
-    public ResponseEntity<?> delete(@PathVariable Long accommodationId){
-        accommodationService.delete(accommodationId);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id, @PathVariable Long tripId){
+        accommodationService.delete(id,tripId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-
+    @GetMapping("")
+    public ResponseEntity<?> findByTripId(@PathVariable Long tripId){
+        List<AccommodationDto> accommodationDtoList = accommodationService.findByTripId(tripId);
+        return new ResponseEntity<>(accommodationDtoList, HttpStatus.OK);
+    }
 }

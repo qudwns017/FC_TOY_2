@@ -47,9 +47,11 @@ public class AccommodationService {
         return AccommodationDto.toAccommodationDto(accommodationEntity);
     }
 
-    public void delete(Long id) {
+    public void delete(Long id, Long tripId) {
+        var accommodationEntity = accommodationMapper.findByTripId(tripId);
         if (accommodationMapper.delete(id) == 0) {
             throw AccommodationError.ACCOMMODATION_NOT_EXIST.defaultException();
+
         }
     }
 }

@@ -32,8 +32,9 @@ public class AccomodationRequest {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime checkOutDatetime;
 
-    @AssertTrue
+    @AssertTrue(message = "체크아웃 시간은 체크인 시간보다 늦어야 합니다. ")
     public boolean isValidPeriod() {
         return checkOutDatetime.isAfter(checkInDatetime);
     }
+
 }
