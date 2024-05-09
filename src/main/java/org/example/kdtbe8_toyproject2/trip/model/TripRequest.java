@@ -39,6 +39,6 @@ public class TripRequest {
 
     @AssertTrue(message = "종료일은 시작일을 앞설 수 없습니다.")
     public boolean isValidPeriod() {
-        return endDate.isAfter(startDate);
+        return endDate.isAfter(startDate) || startDate.isEqual(endDate);
     }
 }

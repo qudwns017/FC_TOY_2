@@ -8,9 +8,12 @@ import org.example.kdtbe8_toyproject2.itinerary.db.StayEntity;
 import org.example.kdtbe8_toyproject2.itinerary.db.ItineraryMapper;
 import org.example.kdtbe8_toyproject2.itinerary.model.ItineraryRequest;
 import org.example.kdtbe8_toyproject2.itinerary.model.ItineraryDto;
+import org.example.kdtbe8_toyproject2.trip.service.TripService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ItineraryService {
     private final ItineraryMapper itineraryMapper;
+    private final TripService tripService;
 
     public List<ItineraryDto> findByTripId(Long tripId) {
         List<ItineraryEntity> itineraries;
@@ -46,6 +50,12 @@ public class ItineraryService {
             ItineraryRequest itineraryRequest,
             Long tripId
     ){
+        var trip = tripService.findById(tripId);
+        if(!isValidDateTime(
+                trip.getStartDate(), trip.getEndDate(), itineraryRequest.getStartDatetime(), itineraryRequest.getEndDatetime()
+        ))
+            throw ItineraryError.TRIP_NOT_EXIST.defaultException(); // throw 시간 검증 오류로 수정 필요
+
         ItineraryEntity itineraryEntity = ItineraryEntity.builder()
                 .tripId(tripId)
                 .name(itineraryRequest.getItineraryName())
@@ -91,6 +101,13 @@ public class ItineraryService {
             Long id,
             ItineraryRequest itineraryRequest
     ) {
+        Long tripId = itineraryMapper.findItineraryById(id).getTripId();
+        var trip = tripService.findById(tripId);
+        if(!isValidDateTime(
+                trip.getStartDate(), trip.getEndDate(), itineraryRequest.getStartDatetime(), itineraryRequest.getEndDatetime()
+        ))
+             throw ItineraryError.TRIP_NOT_EXIST.defaultException(); // throw 시간 검증 오류로 수정 필요
+
         var itineraryEntity = ItineraryEntity.builder()
                 .id(id)
                 .name(itineraryRequest.getItineraryName())
@@ -141,4 +158,14 @@ public class ItineraryService {
             throw ItineraryError.ITINERARY_NOT_EXIST.defaultException();
         }
     }
+
+    public static boolean isValidDateTime(
+            LocalDate startTravel, LocalDate endTravel,
+            LocalDateTime startItinerary, LocalDateTime endItinerary
+    ) {
+        return (startItinerary.toLocalDate().isEqual(startTravel) || startItinerary.toLocalDate().isAfter(startTravel)) &&
+                (endItinerary.toLocalDate().isEqual(endTravel) || endItinerary.toLocalDate().isBefore(endTravel)) &&
+                (startItinerary.isBefore(endItinerary));
+    }
+
 }
