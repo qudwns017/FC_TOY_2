@@ -3,10 +3,12 @@ package org.example.kdtbe8_toyproject2.accommodation.service;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.javassist.NotFoundException;
+import org.example.kdtbe8_toyproject2.accommodation.Api;
 import org.example.kdtbe8_toyproject2.accommodation.db.AccommodationEntity;
 import org.example.kdtbe8_toyproject2.accommodation.db.AccommodationMapper;
 import org.example.kdtbe8_toyproject2.accommodation.model.AccommodationDto;
 import org.example.kdtbe8_toyproject2.accommodation.model.AccomodationRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,12 +20,9 @@ public class AccommodationService {
 
     private final AccommodationMapper accommodationMapper;
 
-    public AccommodationDto create(Long tripId, @Valid AccomodationRequest accomodationRequest) throws Exception {
-        //var TripEntity = tripMapper.findById(accomodationRequest.getTripId()).get();
+    public AccommodationDto create(Long tripId, @Valid AccomodationRequest accomodationRequest)  {
         List<AccommodationEntity> accommodationEntityList = accommodationMapper.findByTripId(tripId);
-        if( accommodationEntityList == null & accommodationEntityList.isEmpty()){
-            throw new Exception("해당 tripId가 존재하지 않습니다 :" + tripId);
-        }
+        //존재 하지 않는 trip id SQLIntegrityConstraintViolationException
         var entity = AccommodationEntity.builder()
                 .tripId(accomodationRequest.getTripId())
                 .id(accomodationRequest.getId())
@@ -38,6 +37,7 @@ public class AccommodationService {
 
     public int delete(Long tripId, Long id) throws Exception {// 반환타입 수정
         List<AccommodationEntity> accommodationEntityList = accommodationMapper.findByTripId(tripId);
+
         if(accommodationEntityList == null & accommodationEntityList.isEmpty()){
             throw new Exception("해당 tripId가 존재하지 않습니다 :" + tripId);
         }
@@ -63,11 +63,3 @@ public class AccommodationService {
     }
 
 }
-/*
-create()
-findByTripId()
-delete()
- */
-/*  public List<AccomodationEntity> findByTripId(Long tripId, Long accomodationId){
-        return accomodationMapper.findByTripId(tripId, accomodationId);
-    }*/
