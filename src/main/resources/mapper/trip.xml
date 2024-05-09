@@ -22,7 +22,7 @@
         <result property="checkOutDatetime" column="check_out_datetime"/>
     </resultMap>
 
-    <resultMap id="itineraryResultMap" type="org.example.kdtbe8_toyproject2.itinerary.db.entity.ItineraryEntity">
+    <resultMap id="itineraryResultMap" type="org.example.kdtbe8_toyproject2.itinerary.db.ItineraryEntity">
         <id property="id" column="itinerary_id"/>
         <result property="name" column="itinerary_name"/>
         <result property="type" column="type"/>

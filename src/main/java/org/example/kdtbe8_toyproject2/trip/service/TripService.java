@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TripService {
     private final TripMapper tripMapper;
-    private final TripConverter tripConverter;
 
     public TripDto create(TripRequest tripRequest) {
         var entity = TripEntity.builder()
@@ -24,7 +23,7 @@ public class TripService {
 
         tripMapper.create(entity);
 
-        return tripConverter.toDto(entity);
+        return TripDto.toDto(entity);
     }
 
     public int update(Long tripId, TripRequest tripRequest) {
