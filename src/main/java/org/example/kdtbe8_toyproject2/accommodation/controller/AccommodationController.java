@@ -19,29 +19,23 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AccommodationController {
 
-    private final AccommodationService accommodationService;;
-    private final AccommodationMapper accommodationMapper;
+    private final AccommodationService accommodationService;
 
     @PostMapping("")
-    public ResponseEntity<?> create(@PathVariable("trip_id") Long tripId, @Valid @RequestBody AccomodationRequest accomodationRequest) throws Exception {
+    public ResponseEntity<?> create(@PathVariable Long tripId, @Valid @RequestBody AccomodationRequest accomodationRequest){
         AccommodationDto accommodationEntity = accommodationService.create(tripId, accomodationRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(accommodationEntity);
     }
 
-
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable("trip_id") Long tripId, @PathVariable Long id) throws Exception {
-        //accommodationService.delete(tripId, id);
-        int accommodationEntity = accommodationService.delete(tripId, id);
-        if(accommodationEntity == 0){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(accommodationEntity);
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        accommodationService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @GetMapping("")
-    public ResponseEntity<?> findByTripId(@PathVariable("trip_id") Long tripId) throws NotFoundException {
-        List<AccommodationEntity> accommodationList = accommodationMapper.findByTripId(tripId);
-        return new ResponseEntity<>(accommodationList, HttpStatus.OK);
+    public ResponseEntity<?> findByTripId(@PathVariable Long tripId){
+        List<AccommodationDto> accommodationDtoList = accommodationService.findByTripId(tripId);
+        return new ResponseEntity<>(accommodationDtoList, HttpStatus.OK);
     }
 }

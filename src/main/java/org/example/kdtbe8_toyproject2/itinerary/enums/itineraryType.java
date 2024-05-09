@@ -1,7 +1,6 @@
-package org.example.kdtbe8_toyproject2;
+package org.example.kdtbe8_toyproject2.itinerary.enums;
 
 import lombok.Getter;
-import org.springframework.data.domain.Sort;
 
 @Getter
 public enum itineraryType {

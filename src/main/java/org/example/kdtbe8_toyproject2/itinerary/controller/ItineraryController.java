@@ -36,11 +36,7 @@ public class ItineraryController {
     public ResponseEntity<?> delete(
             @PathVariable Long itineraryId
     ) {
-        int result = itineraryService.delete(itineraryId);
-
-        if (result == 0) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        itineraryService.delete(itineraryId);
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
@@ -53,11 +49,7 @@ public class ItineraryController {
             @RequestBody
             ItineraryRequest itineraryRequest
     ) {
-        int result = itineraryService.update(id, itineraryRequest);
-
-        if (result == 0) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        itineraryService.update(id, itineraryRequest);
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }

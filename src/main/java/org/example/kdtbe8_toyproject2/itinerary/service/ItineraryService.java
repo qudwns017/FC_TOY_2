@@ -20,7 +20,13 @@ public class ItineraryService {
     private final ItineraryMapper itineraryMapper;
 
     public List<ItineraryDto> findByTripId(Long tripId) {
-        List<ItineraryEntity> itineraries = itineraryMapper.findAllItineraries(tripId);
+        List<ItineraryEntity> itineraries;
+        try {
+            itineraries = itineraryMapper.findAllItineraries(tripId);
+        }
+        catch (Exception e){
+            throw ItineraryError.TRIP_NOT_EXIST.defaultException(e);
+        }
 
         return itineraries.stream()
                 .map(this::mapToItineraryDto)
@@ -52,11 +58,13 @@ public class ItineraryService {
             itineraryMapper.createItinerary(itineraryEntity);
         }
         catch (Exception e){
-            throw ItineraryError.USERNAME_ALREADY_EXISTS.defaultException(e);
+            throw ItineraryError.TRIP_NOT_EXIST.defaultException(e);
         }
+
 
         MoveEntity moveEntity = null;
         StayEntity stayEntity = null;
+
         if(itineraryRequest.getType().getValue() == 0){
             moveEntity = MoveEntity.builder()
                     .itineraryId(itineraryEntity.getId())
@@ -79,24 +87,17 @@ public class ItineraryService {
     }
 
     @Transactional
-    public int delete(Long itineraryId){
+    public void delete(Long itineraryId){
         var itineraryEntity = itineraryMapper.findItineraryById(itineraryId);
         int deleteItineraryStatus = itineraryMapper.deleteItinerary(itineraryId);
 
-        if (deleteItineraryStatus == 0){
-            return deleteItineraryStatus;
-        }
-
-        if(itineraryEntity.getType() == 0){
-            return itineraryMapper.deleteMove(itineraryId);
-        }
-        else{
-            return itineraryMapper.deleteStay(itineraryId);
+        if(deleteItineraryStatus == 0){
+            throw ItineraryError.ITINERARY_NOT_EXIST.defaultException();
         }
     }
 
     @Transactional
-    public int update(
+    public void update(
             Long id,
             ItineraryRequest itineraryRequest
     ) {
@@ -112,12 +113,17 @@ public class ItineraryService {
         int itineraryUpdateSuccess = itineraryMapper.updateItinerary(itineraryEntity);
 
         if (itineraryUpdateSuccess == 0) {
-            return itineraryUpdateSuccess;
+            throw ItineraryError.ITINERARY_NOT_EXIST.defaultException();
         }
 
-        int deleteMoveStatus = 0;
-        int deleteStayStatus = 0;
-        int updateStatus = 0;
+
+        int deleteMoveStatus = deleteMoveStatus = itineraryMapper.deleteMove(id);;
+        int deleteStayStatus = deleteStayStatus = itineraryMapper.deleteStay(id);
+
+        if (deleteMoveStatus == 0 && deleteStayStatus == 0) {
+            throw ItineraryError.UPDATE_FAILED.defaultException();
+        }
+
 
         if(itineraryRequest.getType().getValue() == 0) {
             var moveEntity = MoveEntity.builder()
@@ -127,10 +133,7 @@ public class ItineraryService {
                     .arrivalPlace(itineraryRequest.getArrivalPlace())
                     .build()
                     ;
-
-            deleteMoveStatus = itineraryMapper.deleteMove(id);
-            deleteStayStatus = itineraryMapper.deleteStay(id);
-            updateStatus = itineraryMapper.createMove(moveEntity);
+            itineraryMapper.createMove(moveEntity);
 
         } else {
             var stayEntity = StayEntity.builder()
@@ -138,11 +141,7 @@ public class ItineraryService {
                     .place(itineraryRequest.getPlace())
                     .build()
                     ;
-            deleteStayStatus = itineraryMapper.deleteStay(id);
-            deleteMoveStatus = itineraryMapper.deleteMove(id);
-            updateStatus = itineraryMapper.createStay(stayEntity);
+            itineraryMapper.createStay(stayEntity);
         }
-
-        return (deleteStayStatus & deleteMoveStatus & updateStatus);
     }
 }
