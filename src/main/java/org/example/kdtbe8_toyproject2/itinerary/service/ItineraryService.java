@@ -8,6 +8,7 @@ import org.example.kdtbe8_toyproject2.itinerary.db.StayEntity;
 import org.example.kdtbe8_toyproject2.itinerary.db.ItineraryMapper;
 import org.example.kdtbe8_toyproject2.itinerary.model.ItineraryRequest;
 import org.example.kdtbe8_toyproject2.itinerary.model.ItineraryDto;
+import org.example.kdtbe8_toyproject2.trip.service.TripService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ItineraryService {
     private final ItineraryMapper itineraryMapper;
+    private final TripService tripService;
 
     public List<ItineraryDto> findByTripId(Long tripId) {
         List<ItineraryEntity> itineraries;
@@ -92,6 +94,9 @@ public class ItineraryService {
             Long id,
             ItineraryRequest itineraryRequest
     ) {
+        if(tripService.findTripId(tripId) == null){
+            throw ItineraryError.TRIP_NOT_EXIST.defaultException();
+        }
         var itineraryEntity = ItineraryEntity.builder()
                 .id(id)
                 .tripId(tripId)
@@ -102,12 +107,7 @@ public class ItineraryService {
                 .comment(itineraryRequest.getComment())
                 .build()
                 ;
-        int itineraryUpdateSuccess = itineraryMapper.updateItinerary(itineraryEntity);
-
-        if (itineraryUpdateSuccess == 0) {
-            throw ItineraryError.ITINERARY_NOT_EXIST.defaultException();
-        }
-
+        itineraryMapper.updateItinerary(itineraryEntity);
 
         int deleteMoveStatus = itineraryMapper.deleteMove(id);;
         int deleteStayStatus = itineraryMapper.deleteStay(id);
@@ -141,9 +141,11 @@ public class ItineraryService {
     }
 
     @Transactional
-    public void delete(Long itineraryId){
-        if(itineraryMapper.deleteItinerary(itineraryId) == 0){
-            throw ItineraryError.ITINERARY_NOT_EXIST.defaultException();
+    public void delete(Long tripId, Long itineraryId){
+        if(tripService.findTripId(tripId) == null){
+            throw ItineraryError.TRIP_NOT_EXIST.defaultException();
         }
+
+        itineraryMapper.deleteItinerary(itineraryId);
     }
 }

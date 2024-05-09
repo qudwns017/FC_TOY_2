@@ -54,6 +54,10 @@
                            on A.id = B.trip_id;
     </select>
 
+    <select id="getTripId" parameterType="Long" resultType="Long">
+        select id from trip where id = #{id}
+    </select>
+
     <select id="getById" parameterType="Long" resultMap="tripResultMap">
         SELECT A.id      as trip_id,
                A.name    as trip_name,

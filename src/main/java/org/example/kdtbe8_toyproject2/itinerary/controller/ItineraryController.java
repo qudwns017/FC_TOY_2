@@ -66,9 +66,10 @@ public class ItineraryController {
 
     @DeleteMapping("/{itineraryId}")
     public ApiResponse<?> delete(
+            @PathVariable Long tripId,
             @PathVariable Long itineraryId
     ) {
-        itineraryService.delete(itineraryId);
+        itineraryService.delete(tripId, itineraryId);
 
         return ApiResponse.builder()
                 .status(HttpStatus.ACCEPTED.value())

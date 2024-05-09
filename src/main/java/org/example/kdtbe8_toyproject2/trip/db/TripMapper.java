@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TripMapper {
     List<TripListEntity> getList();
+    Long getTripId(Long id);
     GetTripByIdEntity getById(Long id);
     void create(TripEntity trip);
     int update(TripEntity trip);

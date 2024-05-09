@@ -24,6 +24,10 @@ public class TripService {
         }
     }
 
+    public Long findTripId(Long tripId){
+        return tripMapper.getTripId(tripId);
+    }
+
     public GetTripByIdEntity findById(Long tripId) {
         GetTripByIdEntity tripEntity = tripMapper.getById(tripId);
         if (tripEntity == null) {
@@ -45,7 +49,7 @@ public class TripService {
         return TripDto.toDto(tripEntity);
     }
 
-    public void update(Long tripId, TripRequest tripRequest) {
+    public TripDto update(Long tripId, TripRequest tripRequest) {
         var tripEntity = TripEntity.builder()
                 .tripId(tripId)
                 .tripName(tripRequest.getTripName())
@@ -60,6 +64,8 @@ public class TripService {
         } catch (Exception e) {
             throw TripError.TRIP_NOT_FOUND.defaultException(e);
         }
+
+        return TripDto.toDto(tripEntity);
     }
 
     public void delete(Long tripId) {

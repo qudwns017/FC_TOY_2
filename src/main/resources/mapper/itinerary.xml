@@ -46,7 +46,7 @@
         values(#{itineraryId},#{place})
     </insert>
 
-    <update id="updateItinerary" parameterType="org.example.kdtbe8_toyproject2.itinerary.model.ItineraryDto">
+    <update id="updateItinerary" parameterType="org.example.kdtbe8_toyproject2.itinerary.db.ItineraryEntity">
         UPDATE itinerary
         SET
 
@@ -59,13 +59,13 @@
             id = #{id}
     </update>
 
-    <delete id="deleteItinerary">
+    <delete id="deleteItinerary" parameterType="org.example.kdtbe8_toyproject2.itinerary.db.ItineraryEntity">
         delete from itinerary where id=#{itineraryId}
     </delete>
-    <delete id="deleteMove">
+    <delete id="deleteMove" parameterType="org.example.kdtbe8_toyproject2.itinerary.db.MoveEntity">
         delete from move where itinerary_id=#{itineraryId}
     </delete>
-    <delete id="deleteStay">
+    <delete id="deleteStay" parameterType="org.example.kdtbe8_toyproject2.itinerary.db.StayEntity">
         delete from stay where itinerary_id=#{itineraryId}
     </delete>
 
