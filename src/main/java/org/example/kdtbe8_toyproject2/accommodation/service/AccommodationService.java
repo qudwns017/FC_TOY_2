@@ -36,16 +36,12 @@ public class AccommodationService {
         return AccommodationDto.toAccommodationDto(entity);
     }
 
-    public void delete(Long id) {
-        var accommodationEntity = accommodationMapper.findByTripId(id);
+    public void delete(Long id, Long tripId) {
+        var accommodationEntity = accommodationMapper.findByTripId(tripId);
         if (accommodationMapper.delete(id) == 0) {
-            throw AccommodationError.TRIP_NOT_EXIST.defaultException();
+            throw AccommodationError.ACCOMMODATION_NOT_EXIST.defaultException();
+
         }
-
-        if(accommodationEntity == null || accommodationEntity.isEmpty()){
-           throw AccommodationError.ACCOMMODATION_NOT_EXIST.defaultException();
-       }
-
     }
 
     public List<AccommodationDto> findByTripId(Long tripId){

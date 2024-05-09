@@ -28,8 +28,8 @@ public class AccommodationController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
-        accommodationService.delete(id);
+    public ResponseEntity<?> delete(@PathVariable Long id, @PathVariable Long tripId){
+        accommodationService.delete(id,tripId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
