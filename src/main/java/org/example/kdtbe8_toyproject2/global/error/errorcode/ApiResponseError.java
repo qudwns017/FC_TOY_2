@@ -1,9 +1,9 @@
-package org.example.kdtbe8_toyproject2;
+package org.example.kdtbe8_toyproject2.global.error.errorcode;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Builder;
-import lombok.Setter;
+import org.example.kdtbe8_toyproject2.global.error.exception.CustomException;
 
 import java.time.Instant;
 import java.util.List;
@@ -14,24 +14,29 @@ import java.util.List;
  * @param status 상태 코드 값
  * @param name 오류 이름
  * @param message 오류 메시지
+ * @param cause
  * @param timestamp 발생 시각
  */
 @Builder
-//@Setter
 public record ApiResponseError(
         String code,
         Integer status,
         String name,
         String message,
+        @JsonInclude(Include.NON_EMPTY) List<ApiSimpleError> cause,
         Instant timestamp
 ) {
-    public static ApiResponseError of(RuntimeException exception) {
+    public static ApiResponseError of(CustomException exception) {
+        ErrorCode errorCode = exception.getErrorCode();
         String errorName = exception.getClass().getName();
         errorName = errorName.substring(errorName.lastIndexOf('.') + 1);
 
         return ApiResponseError.builder()
+                .code(errorCode.name())
+                .status(errorCode.defaultHttpStatus().value())
                 .name(errorName)
                 .message(exception.getMessage())
+                .cause(ApiSimpleError.listOfCauseSimpleError(exception.getCause()))
                 .build();
     }
 

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.example.kdtbe8_toyproject2.Conditional;
+import org.example.kdtbe8_toyproject2.global.validation.Conditional;
 import org.example.kdtbe8_toyproject2.itineraryType;
 
 import java.time.LocalDateTime;
