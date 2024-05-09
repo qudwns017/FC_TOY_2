@@ -5,7 +5,7 @@
 
 <mapper namespace="org.example.kdtbe8_toyproject2.accommodation.db.AccommodationMapper">
 
-    <insert id="create" parameterType="org.example.kdtbe8_toyproject2.accommodation.db.AccommodationEntity">
+    <insert id="create" parameterType="org.example.kdtbe8_toyproject2.accommodation.db.AccommodationEntity" useGeneratedKeys="true" keyProperty="id">
         insert into accommodation(trip_id, name, check_in_datetime, check_out_datetime)
         values (#{tripId}, #{name}, #{checkInDatetime}, #{checkOutDatetime})
     </insert>
