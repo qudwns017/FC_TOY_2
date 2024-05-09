@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.example.kdtbe8_toyproject2.global.validation.Conditional;
-import org.example.kdtbe8_toyproject2.itinerary.enums.itineraryType;
+import org.example.kdtbe8_toyproject2.itinerary.enums.ItineraryType;
 
 import java.time.LocalDateTime;
 
@@ -33,7 +33,7 @@ public class ItineraryRequest {
     @NotBlank
     private String itineraryName;
     @NotNull
-    private itineraryType type;
+    private ItineraryType type;
     @NotNull
     private LocalDateTime startDatetime;
     @NotNull
