@@ -2,6 +2,7 @@ package org.example.kdtbe8_toyproject2.itinerary.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.kdtbe8_toyproject2.global.error.errorcode.ItineraryError;
+import org.example.kdtbe8_toyproject2.global.error.errorcode.TravelError;
 import org.example.kdtbe8_toyproject2.itinerary.db.ItineraryEntity;
 import org.example.kdtbe8_toyproject2.itinerary.db.MoveEntity;
 import org.example.kdtbe8_toyproject2.itinerary.db.StayEntity;
@@ -52,7 +53,7 @@ public class ItineraryService {
         if(!isValidDateTime(
                 trip.getStartDate(), trip.getEndDate(), itineraryRequest.getStartDatetime(), itineraryRequest.getEndDatetime()
         ))
-            throw ItineraryError.TRIP_NOT_EXIST.defaultException(); // throw 시간 검증 오류로 수정 필요
+            throw TravelError.TIME_ERROR.defaultException();
 
         ItineraryEntity itineraryEntity = ItineraryEntity.builder()
                 .tripId(tripId)
@@ -100,12 +101,12 @@ public class ItineraryService {
             Long id,
             ItineraryRequest itineraryRequest
     ) {
-        Long tripId = itineraryMapper.findItineraryById(id).getTripId();
+
         var trip = tripService.findById(tripId);
         if(!isValidDateTime(
                 trip.getStartDate(), trip.getEndDate(), itineraryRequest.getStartDatetime(), itineraryRequest.getEndDatetime()
         ))
-             throw ItineraryError.TRIP_NOT_EXIST.defaultException(); // throw 시간 검증 오류로 수정 필요
+             throw TravelError.TIME_ERROR.defaultException();
 
         var itineraryEntity = ItineraryEntity.builder()
                 .id(id)
