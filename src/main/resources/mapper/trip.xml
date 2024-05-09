@@ -4,6 +4,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.example.kdtbe8_toyproject2.trip.db.TripMapper">
+    <resultMap id="getListResultMap" type="org.example.kdtbe8_toyproject2.trip.db.TripListEntity">
+        <id property="tripId" column="trip_id"/>
+        <result property="tripName" column="trip_name"/>
+        <collection property="itineraries" resultMap="itineraryNameResultMap"/>
+    </resultMap>
+
+    <resultMap id="itineraryNameResultMap" type="org.example.kdtbe8_toyproject2.itinerary.db.ItineraryNameEntity">
+        <id property="itineraryId" column="itinerary_id"/>
+        <result property="itineraryName" column="itinerary_name"/>
+    </resultMap>
+
     <resultMap id="tripResultMap" type="org.example.kdtbe8_toyproject2.trip.db.GetTripByIdEntity">
         <id property="tripId" column="trip_id"/>
         <result property="tripName" column="trip_name"/>
@@ -33,14 +44,19 @@
         <result property="comment" column="itinerary_comment"/>
     </resultMap>
 
-    <select id="getList" resultType="org.example.kdtbe8_toyproject2.trip.db.TripListEntity">
-        select id, name
-        from trip;
+    <select id="getList" resultMap="getListResultMap">
+        select A.id   as trip_id,
+               A.name as trip_name,
+               B.id   as itinerary_id,
+               B.name as itinerary_name
+        from trip A
+                 left join itinerary B
+                           on A.id = B.trip_id;
     </select>
 
     <select id="getById" parameterType="Long" resultMap="tripResultMap">
-        SELECT A.id as trip_id,
-               A.name as trip_name,
+        SELECT A.id      as trip_id,
+               A.name    as trip_name,
                A.start_date,
                A.end_date,
                A.is_oversea,
@@ -63,23 +79,25 @@
         WHERE A.id = #{id};
     </select>
 
-    <insert id="create" parameterType="org.example.kdtbe8_toyproject2.trip.db.TripEntity" useGeneratedKeys="true" keyProperty="tripId">
+    <insert id="create" parameterType="org.example.kdtbe8_toyproject2.trip.db.TripEntity" useGeneratedKeys="true"
+            keyProperty="tripId">
         insert into trip(name, start_date, end_date, is_oversea, comment)
         values (#{tripName}, #{startDate}, #{endDate}, #{isOversea}, #{comment})
     </insert>
 
     <update id="update" parameterType="org.example.kdtbe8_toyproject2.trip.db.TripEntity">
         update trip
-        set
-            name = #{tripName},
+        set name       = #{tripName},
             start_date = #{startDate},
-            end_date = #{endDate},
+            end_date   = #{endDate},
             is_oversea = #{isOversea},
-            comment = #{comment}
+            comment    = #{comment}
         where id = #{tripId}
     </update>
 
     <delete id="delete" parameterType="Long">
-        delete from trip where id = #{tripId}
+        delete
+        from trip
+        where id = #{tripId}
     </delete>
 </mapper>
