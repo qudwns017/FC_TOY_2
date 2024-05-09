@@ -23,17 +23,16 @@ public class AccommodationController {
     private final AccommodationMapper accommodationMapper;
 
     @PostMapping("")
-    public ResponseEntity<?> create(@PathVariable Long tripId, @Valid @RequestBody AccomodationRequest accomodationRequest) throws Exception {
+    public ResponseEntity<?> create(@PathVariable("trip_id") Long tripId, @Valid @RequestBody AccomodationRequest accomodationRequest) throws Exception {
         AccommodationDto accommodationEntity = accommodationService.create(tripId, accomodationRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(accommodationEntity);
     }
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long tripId, @PathVariable Long id) throws Exception {
+    public ResponseEntity<?> delete(@PathVariable("trip_id") Long tripId, @PathVariable Long id) throws Exception {
         //accommodationService.delete(tripId, id);
         int accommodationEntity = accommodationService.delete(tripId, id);
-
         if(accommodationEntity == 0){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -41,7 +40,7 @@ public class AccommodationController {
     }
 
     @GetMapping("")
-    public ResponseEntity<?> findByTripId(@PathVariable Long tripId) {
+    public ResponseEntity<?> findByTripId(@PathVariable("trip_id") Long tripId) throws NotFoundException {
         List<AccommodationEntity> accommodationList = accommodationMapper.findByTripId(tripId);
         return new ResponseEntity<>(accommodationList, HttpStatus.OK);
     }

@@ -3,7 +3,6 @@ package org.example.kdtbe8_toyproject2.accommodation.service;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.javassist.NotFoundException;
-import org.example.kdtbe8_toyproject2.accommodation.Api;
 import org.example.kdtbe8_toyproject2.accommodation.db.AccommodationEntity;
 import org.example.kdtbe8_toyproject2.accommodation.db.AccommodationMapper;
 import org.example.kdtbe8_toyproject2.accommodation.model.AccommodationDto;
@@ -20,9 +19,12 @@ public class AccommodationService {
 
     private final AccommodationMapper accommodationMapper;
 
-    public AccommodationDto create(Long tripId, @Valid AccomodationRequest accomodationRequest)  {
+    public AccommodationDto create(Long tripId, @Valid AccomodationRequest accomodationRequest) throws Exception {
+        //var TripEntity = tripMapper.findById(accomodationRequest.getTripId()).get();
         List<AccommodationEntity> accommodationEntityList = accommodationMapper.findByTripId(tripId);
-        //존재 하지 않는 trip id SQLIntegrityConstraintViolationException
+        if( accommodationEntityList == null & accommodationEntityList.isEmpty()){
+            throw new Exception("해당 tripId가 존재하지 않습니다 :" + tripId);
+        }
         var entity = AccommodationEntity.builder()
                 .tripId(accomodationRequest.getTripId())
                 .id(accomodationRequest.getId())
@@ -37,7 +39,6 @@ public class AccommodationService {
 
     public int delete(Long tripId, Long id) throws Exception {// 반환타입 수정
         List<AccommodationEntity> accommodationEntityList = accommodationMapper.findByTripId(tripId);
-
         if(accommodationEntityList == null & accommodationEntityList.isEmpty()){
             throw new Exception("해당 tripId가 존재하지 않습니다 :" + tripId);
         }
@@ -52,13 +53,13 @@ public class AccommodationService {
 
 
     public List<AccommodationDto> findByTripId(Long tripId) throws NotFoundException {
-       List<AccommodationEntity> accomodationList = accommodationMapper.findByTripId(tripId);
-       if(accomodationList == null || accomodationList.isEmpty()){
-           throw new NotFoundException("존재하지 않는 여행 id" + tripId);
-       }
-       return accomodationList.stream()
-               .map(AccommodationDto::toAccommodationDto)
-               .collect(Collectors.toList());
+        List<AccommodationEntity> accomodationList = accommodationMapper.findByTripId(tripId);
+        if(accomodationList == null || accomodationList.isEmpty()){
+            throw new NotFoundException("존재하지 않는 여행 id" + tripId);
+        }
+        return accomodationList.stream()
+                .map(AccommodationDto::toAccommodationDto)
+                .collect(Collectors.toList());
 
     }
 
