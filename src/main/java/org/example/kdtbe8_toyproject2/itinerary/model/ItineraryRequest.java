@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.example.kdtbe8_toyproject2.global.validation.Conditional;
-import org.example.kdtbe8_toyproject2.itineraryType;
+import org.example.kdtbe8_toyproject2.itinerary.enums.itineraryType;
 
 import java.time.LocalDateTime;
 

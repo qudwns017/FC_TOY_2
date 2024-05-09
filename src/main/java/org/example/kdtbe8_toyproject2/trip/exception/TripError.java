@@ -1,14 +1,13 @@
-package org.example.kdtbe8_toyproject2.global.error.errorcode;
+package org.example.kdtbe8_toyproject2.trip.exception;
 
 import lombok.RequiredArgsConstructor;
+import org.example.kdtbe8_toyproject2.global.error.errorcode.ErrorCode;
 import org.example.kdtbe8_toyproject2.global.error.exception.ItineraryException;
 import org.springframework.http.HttpStatus;
 
 @RequiredArgsConstructor
-public enum ItineraryError implements ErrorCode {
-    TRIP_NOT_EXIST("해당 여행정보가 없습니다.", HttpStatus.NOT_FOUND),
-    ITINERARY_NOT_EXIST("해당 여정정보가 없습니다.", HttpStatus.NOT_FOUND),
-    UPDATE_FAILED("업데이트 실패하였습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+public enum TripError implements ErrorCode {
+    TRIP_NOT_FOUND("여행정보를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
 
     private final String message;
     private final HttpStatus status;

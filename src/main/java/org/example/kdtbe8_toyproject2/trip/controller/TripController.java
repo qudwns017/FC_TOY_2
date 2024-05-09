@@ -1,12 +1,9 @@
 package org.example.kdtbe8_toyproject2.trip.controller;
 
 import jakarta.validation.Valid;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.kdtbe8_toyproject2.trip.db.TripMapper;
-import org.example.kdtbe8_toyproject2.trip.db.GetTripByIdEntity;
-import org.example.kdtbe8_toyproject2.trip.db.TripListEntity;
 import org.example.kdtbe8_toyproject2.trip.model.TripRequest;
 import org.example.kdtbe8_toyproject2.trip.service.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,19 +18,16 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class TripController {
     @Autowired
-    private TripMapper mapper;
     private final TripService tripService;
 
     @GetMapping("")
     public ResponseEntity<?> getTripList() {
-        List<TripListEntity> list = mapper.getList();
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(tripService.findAll());
     }
 
     @GetMapping("/{tripId}")
-    public ResponseEntity<?> getTripById(@PathVariable int tripId) {
-        GetTripByIdEntity trip = mapper.getById(tripId);
-        return new ResponseEntity<>(trip, HttpStatus.OK);
+    public ResponseEntity<?> getTripById(@PathVariable Long tripId) {
+        return ResponseEntity.status(HttpStatus.OK).body(tripService.findById(tripId));
     }
 
     @PostMapping("")
