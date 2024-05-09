@@ -38,7 +38,7 @@ public class AccommodationService {
 
     public void delete(Long id) {
         if (accommodationMapper.delete(id) == 0) {
-            throw AccommodationError.ACCOMMODATION_NOT_EXIST.defaultException();
+            throw AccommodationError.TRIP_NOT_EXIST.defaultException();
         }
     }
 
