@@ -87,16 +87,6 @@ public class ItineraryService {
     }
 
     @Transactional
-    public void delete(Long itineraryId){
-        var itineraryEntity = itineraryMapper.findItineraryById(itineraryId);
-        int deleteItineraryStatus = itineraryMapper.deleteItinerary(itineraryId);
-
-        if(deleteItineraryStatus == 0){
-            throw ItineraryError.ITINERARY_NOT_EXIST.defaultException();
-        }
-    }
-
-    @Transactional
     public void update(
             Long id,
             ItineraryRequest itineraryRequest
@@ -117,8 +107,8 @@ public class ItineraryService {
         }
 
 
-        int deleteMoveStatus = deleteMoveStatus = itineraryMapper.deleteMove(id);;
-        int deleteStayStatus = deleteStayStatus = itineraryMapper.deleteStay(id);
+        int deleteMoveStatus = itineraryMapper.deleteMove(id);;
+        int deleteStayStatus = itineraryMapper.deleteStay(id);
 
         if (deleteMoveStatus == 0 && deleteStayStatus == 0) {
             throw ItineraryError.UPDATE_FAILED.defaultException();
@@ -142,6 +132,13 @@ public class ItineraryService {
                     .build()
                     ;
             itineraryMapper.createStay(stayEntity);
+        }
+    }
+
+    @Transactional
+    public void delete(Long itineraryId){
+        if(itineraryMapper.deleteItinerary(itineraryId) == 0){
+            throw ItineraryError.ITINERARY_NOT_EXIST.defaultException();
         }
     }
 }

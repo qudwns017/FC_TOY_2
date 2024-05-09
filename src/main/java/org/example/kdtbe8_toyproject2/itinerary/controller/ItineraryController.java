@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.*;
 public class ItineraryController {
     private final ItineraryService itineraryService;
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<?> findByTripId(
             @PathVariable Long tripId
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(itineraryService.findByTripId(tripId));
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<?> create(
             @PathVariable Long tripId,
             @Validated
@@ -32,24 +32,23 @@ public class ItineraryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(itineraryService.create(itineraryRequest,tripId));
     }
 
+    @PutMapping("/{itineraryId}")
+    public ResponseEntity<?> update(
+            @PathVariable
+            Long itineraryId,
+            @Valid
+            @RequestBody
+            ItineraryRequest itineraryRequest
+    ) {
+        itineraryService.update(itineraryId, itineraryRequest);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    }
+
     @DeleteMapping("/{itineraryId}")
     public ResponseEntity<?> delete(
             @PathVariable Long itineraryId
     ) {
         itineraryService.delete(itineraryId);
-
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(
-            @PathVariable
-            Long id,
-            @Valid
-            @RequestBody
-            ItineraryRequest itineraryRequest
-    ) {
-        itineraryService.update(id, itineraryRequest);
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }

@@ -23,7 +23,6 @@ public enum ItineraryError implements ErrorCode {
         return status;
     }
 
-    // 부모 메서드보다 더 구체적인 타입으로 반환할 수 있다.
     @Override
     public ItineraryException defaultException() {
         return new ItineraryException(this);

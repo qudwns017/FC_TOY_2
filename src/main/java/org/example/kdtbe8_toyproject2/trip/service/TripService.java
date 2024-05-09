@@ -6,7 +6,7 @@ import org.example.kdtbe8_toyproject2.trip.db.GetTripByIdEntity;
 import org.example.kdtbe8_toyproject2.trip.db.TripEntity;
 import org.example.kdtbe8_toyproject2.trip.db.TripListEntity;
 import org.example.kdtbe8_toyproject2.trip.db.TripMapper;
-import org.example.kdtbe8_toyproject2.trip.exception.TripError;
+import org.example.kdtbe8_toyproject2.global.error.errorcode.TripError;
 import org.example.kdtbe8_toyproject2.trip.model.TripDto;
 import org.example.kdtbe8_toyproject2.trip.model.TripRequest;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ public class TripService {
     }
 
     public TripDto create(TripRequest tripRequest) {
-        var entity = TripEntity.builder()
+        var tripEntity = TripEntity.builder()
                 .tripName(tripRequest.getTripName())
                 .startDate(tripRequest.getStartDate())
                 .endDate(tripRequest.getEndDate())
@@ -41,12 +41,12 @@ public class TripService {
                 .comment(tripRequest.getComment())
                 .build();
 
-        tripMapper.create(entity);
-        return TripDto.toDto(entity);
+        tripMapper.create(tripEntity);
+        return TripDto.toDto(tripEntity);
     }
 
     public void update(Long tripId, TripRequest tripRequest) {
-        var entity = TripEntity.builder()
+        var tripEntity = TripEntity.builder()
                 .tripId(tripId)
                 .tripName(tripRequest.getTripName())
                 .startDate(tripRequest.getStartDate())
@@ -56,7 +56,7 @@ public class TripService {
                 .build();
 
         try {
-            tripMapper.update(entity);
+            tripMapper.update(tripEntity);
         } catch (Exception e) {
             throw TripError.TRIP_NOT_FOUND.defaultException(e);
         }

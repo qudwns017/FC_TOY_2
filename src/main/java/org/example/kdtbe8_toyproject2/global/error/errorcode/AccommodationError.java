@@ -2,7 +2,6 @@ package org.example.kdtbe8_toyproject2.global.error.errorcode;
 
 import lombok.RequiredArgsConstructor;
 import org.example.kdtbe8_toyproject2.global.error.exception.AccommodationException;
-import org.example.kdtbe8_toyproject2.global.error.exception.ItineraryException;
 import org.springframework.http.HttpStatus;
 
 @RequiredArgsConstructor
@@ -23,7 +22,6 @@ public enum AccommodationError implements ErrorCode {
         return status;
     }
 
-    // 부모 메서드보다 더 구체적인 타입으로 반환할 수 있다.
     @Override
     public AccommodationException defaultException() {
         return new AccommodationException(this);

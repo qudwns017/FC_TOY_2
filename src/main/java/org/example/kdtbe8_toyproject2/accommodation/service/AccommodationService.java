@@ -19,8 +19,19 @@ public class AccommodationService {
 
     private final AccommodationMapper accommodationMapper;
 
+    public List<AccommodationDto> findByTripId(Long tripId){
+        List<AccommodationEntity> accommodations = accommodationMapper.findByTripId(tripId);
+        if(accommodations == null || accommodations.isEmpty()){
+            throw AccommodationError.ACCOMMODATION_NOT_EXIST.defaultException();
+        }
+
+        return accommodations.stream()
+                .map(AccommodationDto::toAccommodationDto)
+                .collect(Collectors.toList());
+    }
+
     public AccommodationDto create(Long tripId, @Valid AccomodationRequest accomodationRequest) {
-        var entity = AccommodationEntity.builder()
+        var accommodationEntity = AccommodationEntity.builder()
                 .tripId(tripId)
                 .name(accomodationRequest.getName())
                 .checkInDatetime(accomodationRequest.getCheckInDatetime())
@@ -28,12 +39,12 @@ public class AccommodationService {
                 .build();
 
         try {
-            accommodationMapper.create(entity);
+            accommodationMapper.create(accommodationEntity);
         } catch (Exception e) {
             throw AccommodationError.TRIP_NOT_EXIST.defaultException(e);
         }
 
-        return AccommodationDto.toAccommodationDto(entity);
+        return AccommodationDto.toAccommodationDto(accommodationEntity);
     }
 
     public void delete(Long id, Long tripId) {
@@ -42,16 +53,5 @@ public class AccommodationService {
             throw AccommodationError.ACCOMMODATION_NOT_EXIST.defaultException();
 
         }
-    }
-
-    public List<AccommodationDto> findByTripId(Long tripId){
-       List<AccommodationEntity> accomodationList = accommodationMapper.findByTripId(tripId);
-       if(accomodationList == null || accomodationList.isEmpty()){
-           throw AccommodationError.ACCOMMODATION_NOT_EXIST.defaultException();
-       }
-
-       return accomodationList.stream()
-               .map(AccommodationDto::toAccommodationDto)
-               .collect(Collectors.toList());
     }
 }
