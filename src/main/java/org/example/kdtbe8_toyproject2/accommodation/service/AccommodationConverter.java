@@ -11,7 +11,6 @@ public class AccommodationConverter {
         return AccommodationDto.builder()
                 .tripId(accommodationEntity.getTripId())
                 .id(accommodationEntity.getId())
-                .tripId(accommodationEntity.getTripId())
                 .name(accommodationEntity.getName())
                 .checkInDatetime(accommodationEntity.getCheckInDatetime())
                 .checkOutDatetime(accommodationEntity.getCheckOutDatetime())
