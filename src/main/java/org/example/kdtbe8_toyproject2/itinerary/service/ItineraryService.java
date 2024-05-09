@@ -12,6 +12,8 @@ import org.example.kdtbe8_toyproject2.trip.service.TripService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,6 +48,12 @@ public class ItineraryService {
             ItineraryRequest itineraryRequest,
             Long tripId
     ){
+        var trip = tripService.findById(tripId);
+        if(!isValidDateTime(
+                trip.getStartDate(), trip.getEndDate(), itineraryRequest.getStartDatetime(), itineraryRequest.getEndDatetime()
+        ))
+            throw ItineraryError.TRIP_NOT_EXIST.defaultException(); // throw 시간 검증 오류로 수정 필요
+
         ItineraryEntity itineraryEntity = ItineraryEntity.builder()
                 .tripId(tripId)
                 .name(itineraryRequest.getItineraryName())
@@ -92,9 +100,13 @@ public class ItineraryService {
             Long id,
             ItineraryRequest itineraryRequest
     ) {
-        if(tripService.findTripId(tripId) == null){
-            throw ItineraryError.TRIP_NOT_EXIST.defaultException();
-        }
+        Long tripId = itineraryMapper.findItineraryById(id).getTripId();
+        var trip = tripService.findById(tripId);
+        if(!isValidDateTime(
+                trip.getStartDate(), trip.getEndDate(), itineraryRequest.getStartDatetime(), itineraryRequest.getEndDatetime()
+        ))
+             throw ItineraryError.TRIP_NOT_EXIST.defaultException(); // throw 시간 검증 오류로 수정 필요
+
         var itineraryEntity = ItineraryEntity.builder()
                 .id(id)
                 .tripId(tripId)
@@ -148,4 +160,14 @@ public class ItineraryService {
             throw ItineraryError.ITINERARY_NOT_EXIST.defaultException();
         };
     }
+
+    public static boolean isValidDateTime(
+            LocalDate startTravel, LocalDate endTravel,
+            LocalDateTime startItinerary, LocalDateTime endItinerary
+    ) {
+        return (startItinerary.toLocalDate().isEqual(startTravel) || startItinerary.toLocalDate().isAfter(startTravel)) &&
+                (endItinerary.toLocalDate().isEqual(endTravel) || endItinerary.toLocalDate().isBefore(endTravel)) &&
+                (startItinerary.isBefore(endItinerary));
+    }
+
 }
