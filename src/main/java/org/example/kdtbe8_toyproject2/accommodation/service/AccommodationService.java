@@ -1,5 +1,6 @@
 package org.example.kdtbe8_toyproject2.accommodation.service;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.example.kdtbe8_toyproject2.accommodation.db.AccommodationEntity;
@@ -18,7 +19,8 @@ public class AccommodationService {
     private final AccommodationMapper accommodationMapper;
     private final AccommodationConverter accommodationConverter;
 
-    public void create(Long tripId, AccomodationRequest accomodationRequest) throws Exception {
+
+    public AccommodationDto create(Long tripId, @Valid AccomodationRequest accomodationRequest) throws Exception {
         //var TripEntity = tripMapper.findById(accomodationRequest.getTripId()).get();
         List<AccommodationEntity> accommodationEntityList = accommodationMapper.findByTripId(tripId);
         if( accommodationEntityList == null || accommodationEntityList.isEmpty()){
@@ -32,11 +34,11 @@ public class AccommodationService {
                 .checkOutDatetime(accomodationRequest.getCheckOutDatetime())
                 .build();
 
-        var saveEntity = accommodationMapper.create(entity);
-
+        accommodationMapper.create(entity);
+        return accommodationConverter.toAccomodationDto(entity);
     }
 
-    public void delete(Long tripId, Long id) throws Exception {
+    public int delete(Long tripId, Long id) throws Exception {// 반환타입 수정
         List<AccommodationEntity> accommodationEntityList = accommodationMapper.findByTripId(tripId);
         if(accommodationEntityList == null || accommodationEntityList.isEmpty()){
             throw new Exception("해당 tripId가 존재하지 않습니다 :" + tripId);
@@ -44,7 +46,9 @@ public class AccommodationService {
         if (accommodationEntityList.stream().noneMatch(entity -> entity.getId().equals(id))) {
             throw new Exception("해당 숙박id가 존재하지 않습니다 :" + id);
         }
+
          accommodationMapper.delete(tripId,id);
+        return accommodationMapper.delete(tripId,id);
     }
 
 
@@ -61,11 +65,3 @@ public class AccommodationService {
     }
 
 }
-/*
-create()
-findByTripId()
-delete()
- */
-/*  public List<AccomodationEntity> findByTripId(Long tripId, Long accomodationId){
-        return accomodationMapper.findByTripId(tripId, accomodationId);
-    }*/

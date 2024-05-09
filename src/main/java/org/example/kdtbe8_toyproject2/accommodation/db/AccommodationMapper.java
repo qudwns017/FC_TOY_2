@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 @Mapper
 public interface AccommodationMapper {
-    public void delete(Long tripId, Long id);
+    public int delete(Long tripId, Long id);
     public Long create(AccommodationEntity accommodationEntity);
     public List<AccommodationEntity> findByTripId(Long tripId);
 
