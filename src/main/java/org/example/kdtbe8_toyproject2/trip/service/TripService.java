@@ -33,7 +33,7 @@ public class TripService {
     }
 
     public TripDto create(TripRequest tripRequest) {
-        var entity = TripEntity.builder()
+        var tripEntity = TripEntity.builder()
                 .tripName(tripRequest.getTripName())
                 .startDate(tripRequest.getStartDate())
                 .endDate(tripRequest.getEndDate())
@@ -41,12 +41,12 @@ public class TripService {
                 .comment(tripRequest.getComment())
                 .build();
 
-        tripMapper.create(entity);
-        return TripDto.toDto(entity);
+        tripMapper.create(tripEntity);
+        return TripDto.toDto(tripEntity);
     }
 
     public void update(Long tripId, TripRequest tripRequest) {
-        var entity = TripEntity.builder()
+        var tripEntity = TripEntity.builder()
                 .tripId(tripId)
                 .tripName(tripRequest.getTripName())
                 .startDate(tripRequest.getStartDate())
@@ -56,7 +56,7 @@ public class TripService {
                 .build();
 
         try {
-            tripMapper.update(entity);
+            tripMapper.update(tripEntity);
         } catch (Exception e) {
             throw TripError.TRIP_NOT_FOUND.defaultException(e);
         }

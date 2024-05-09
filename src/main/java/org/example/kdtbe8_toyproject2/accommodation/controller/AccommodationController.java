@@ -18,24 +18,30 @@ import java.util.List;
 @RequestMapping("/api/trips/{tripId}/accommodation")
 @RequiredArgsConstructor
 public class AccommodationController {
-
     private final AccommodationService accommodationService;
 
-    @PostMapping("")
-    public ResponseEntity<?> create(@PathVariable Long tripId, @Valid @RequestBody AccomodationRequest accomodationRequest){
-        AccommodationDto accommodationEntity = accommodationService.create(tripId, accomodationRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(accommodationEntity);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
-        accommodationService.delete(id);
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
-
-    @GetMapping("")
-    public ResponseEntity<?> findByTripId(@PathVariable Long tripId){
+    @GetMapping
+    public ResponseEntity<?> findByTripId(
+            @PathVariable Long tripId
+    ){
         List<AccommodationDto> accommodationDtoList = accommodationService.findByTripId(tripId);
         return new ResponseEntity<>(accommodationDtoList, HttpStatus.OK);
     }
+
+    @PostMapping
+    public ResponseEntity<?> create(
+            @PathVariable Long tripId,
+            @Valid
+            @RequestBody AccomodationRequest accomodationRequest
+    ){
+        return ResponseEntity.status(HttpStatus.CREATED).body(accommodationService.create(tripId, accomodationRequest));
+    }
+
+    @DeleteMapping("/{accommodationId}")
+    public ResponseEntity<?> delete(@PathVariable Long accommodationId){
+        accommodationService.delete(accommodationId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+
 }

@@ -30,13 +30,13 @@ import java.time.LocalDateTime;
         }
 )
 public class ItineraryRequest {
-    @NotBlank
+    @NotBlank(message= "여정 이름을 입력해주세요.")
     private String itineraryName;
-    @NotNull
+    @NotNull(message= "여정 타입을 입력해주세요.")
     private ItineraryType type;
-    @NotNull
+    @NotNull(message= "시작시간은 빈칸일 수 없습니다.")
     private LocalDateTime startDatetime;
-    @NotNull
+    @NotNull(message= "도착시간은 빈칸일 수 없습니다.")
     private LocalDateTime endDatetime;
     private String transportation;
     private String departurePlace;

@@ -1,4 +1,4 @@
-package org.example.kdtbe8_toyproject2.trip.exception;
+package org.example.kdtbe8_toyproject2.global.error.errorcode;
 
 import lombok.RequiredArgsConstructor;
 import org.example.kdtbe8_toyproject2.global.error.errorcode.ErrorCode;
@@ -23,7 +23,6 @@ public enum TripError implements ErrorCode {
         return status;
     }
 
-    // 부모 메서드보다 더 구체적인 타입으로 반환할 수 있다.
     @Override
     public TripException defaultException() {
         return new TripException(this);

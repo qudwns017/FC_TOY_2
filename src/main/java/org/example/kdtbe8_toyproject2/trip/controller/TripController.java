@@ -11,30 +11,30 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Slf4j
 @RequestMapping("/api/trips")
 @RequiredArgsConstructor
 
 @RestController
 public class TripController {
-    @Autowired
     private final TripService tripService;
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<?> getTripList() {
         return ResponseEntity.status(HttpStatus.OK).body(tripService.findAll());
     }
 
     @GetMapping("/{tripId}")
-    public ResponseEntity<?> getTripById(@PathVariable Long tripId) {
+    public ResponseEntity<?> getTripById(
+            @PathVariable Long tripId
+    ) {
         return ResponseEntity.status(HttpStatus.OK).body(tripService.findById(tripId));
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<Object> create(
-            @Valid @RequestBody TripRequest tripRequest) {
-        var entity = tripService.create(tripRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(entity);
+            @Valid @RequestBody TripRequest tripRequest
+    ) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(tripService.create(tripRequest));
     }
 
     @PutMapping("/{tripId}")

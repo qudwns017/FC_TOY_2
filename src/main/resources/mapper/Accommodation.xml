@@ -5,15 +5,15 @@
 
 <mapper namespace="org.example.kdtbe8_toyproject2.accommodation.db.AccommodationMapper">
 
-    <insert id="create" parameterType="org.example.kdtbe8_toyproject2.accommodation.db.AccommodationEntity" useGeneratedKeys="true" keyProperty="id">
-        insert into accommodation(trip_id, name, check_in_datetime, check_out_datetime)
-        values (#{tripId}, #{name}, #{checkInDatetime}, #{checkOutDatetime})
-    </insert>
-
     <select id="findByTripId" parameterType="org.example.kdtbe8_toyproject2.accommodation.db.AccommodationEntity" ><!-- result = "TripId"-->
         select * from accommodation
         where trip_id = #{tripId}
     </select>
+
+    <insert id="create" parameterType="org.example.kdtbe8_toyproject2.accommodation.db.AccommodationEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into accommodation(trip_id, name, check_in_datetime, check_out_datetime)
+        values (#{tripId}, #{name}, #{checkInDatetime}, #{checkOutDatetime})
+    </insert>
 
     <delete id="delete" parameterType="org.example.kdtbe8_toyproject2.accommodation.db.AccommodationEntity" >
         delete from accommodation
@@ -21,24 +21,3 @@
     </delete>
 
 </mapper>
-
-<!--
-
-<collection
-            column="참조컬럼명"
-            javaType="패키지.클래스명"
-            ofType="DTO명"
-            property="적용할 멤버변수명"
-            select="조인할매퍼의 쿼리문"
-/>
-<resultMap id="TripId" type="org.example.kdtbe8_toyproject2.trip.db.tripEntity"> <type="id-
-<id column="id" property="id"/>
-<id column="name" property="name"/>
-<id column="start_date" property="startDate"/>
-<id column="end_date" property="endDate"/>
-
-<collection property="accommodationsList" column="id" javaType="java.util.List" ofType="org.example.kdtbe8_toyproject2.accommodation.db.accommodationEntity"
-select ="findByTripId"/>
-        </resultMap>
-
--->

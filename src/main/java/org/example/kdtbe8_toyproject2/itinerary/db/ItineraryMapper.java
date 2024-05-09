@@ -1,25 +1,27 @@
 package org.example.kdtbe8_toyproject2.itinerary.db;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
+@Repository
 public interface ItineraryMapper {
     List<ItineraryEntity> findAllItineraries(Long tripId);
     MoveEntity findMoveById(Long itineraryId);
     StayEntity findStayById(Long itineraryId);
+    ItineraryEntity findItineraryById(Long itineraryId);
 
-    public Long createItinerary(ItineraryEntity itinerary);
-    public int createMove(MoveEntity move);
-    public int createStay(StayEntity stay);
+    int createItinerary(ItineraryEntity itinerary);
+    int createMove(MoveEntity move);
+    int createStay(StayEntity stay);
 
-    public int deleteItinerary(Long itineraryId);
-    public int deleteMove(Long itineraryId);
-    public int deleteStay(Long itineraryId);
+    int updateItinerary(ItineraryEntity itinerary);
 
-    public ItineraryEntity findItineraryById(Long itineraryId);
+    int deleteItinerary(Long itineraryId);
+    int deleteMove(Long itineraryId);
+    int deleteStay(Long itineraryId);
 
-    public int updateItinerary(ItineraryEntity itinerary);
 
 }
