@@ -16,7 +16,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 @Order(1)
 public class AccommodationExceptionHandler {
 
-    @ExceptionHandler(value = {SQLIntegrityConstraintViolationException.class})
+   /* @ExceptionHandler(value = {SQLIntegrityConstraintViolationException.class})
     public ResponseEntity<?> handleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException e) {
         log.error("SQLIntegrityConstraintViolationException", e);
 
@@ -36,5 +36,5 @@ public class AccommodationExceptionHandler {
       return ResponseEntity
               .status(HttpStatus.BAD_REQUEST)
               .body(response);
-    }
+    }*/
 }
