@@ -38,7 +38,7 @@
         from trip;
     </select>
 
-    <select id="getById" parameterType="int" resultMap="tripResultMap">
+    <select id="getById" parameterType="Long" resultMap="tripResultMap">
         SELECT A.id as trip_id,
                A.name as trip_name,
                A.start_date,

@@ -31,9 +31,8 @@ public class TripController {
     }
 
     @GetMapping("/{tripId}")
-    public ResponseEntity<?> getTripById(@PathVariable int tripId) {
-        GetTripByIdEntity trip = mapper.getById(tripId);
-        return new ResponseEntity<>(trip, HttpStatus.OK);
+    public ResponseEntity<?> getTripById(@PathVariable Long tripId) {
+        return ResponseEntity.status(HttpStatus.OK).body(tripService.findById(tripId));
     }
 
     @PostMapping("")
