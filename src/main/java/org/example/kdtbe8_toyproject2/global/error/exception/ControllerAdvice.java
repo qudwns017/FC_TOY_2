@@ -2,6 +2,7 @@ package org.example.kdtbe8_toyproject2.global.error.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.example.kdtbe8_toyproject2.global.error.errorcode.ApiSimpleError;
 import org.example.kdtbe8_toyproject2.global.util.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import java.util.Map;
 public class ControllerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException e, HttpServletRequest request) {
+    public ApiResponse<?> handleValidationExceptions(MethodArgumentNotValidException e, HttpServletRequest request) {
         Map<String, String> errorDefaultMessages = new HashMap<>();
         Map<String, Object> errors = new HashMap<>();
         String objectName = e.getObjectName();
@@ -25,7 +26,13 @@ public class ControllerAdvice {
                 .forEach(error -> errorDefaultMessages.put(error.getField(), error.getDefaultMessage()));
 
         log.error("failure check request validation, uri: {}, objectName: {}, {}", request.getRequestURI(), objectName, errors);
-        return ResponseEntity.badRequest().body(errorDefaultMessages);
+        //return ResponseEntity.badRequest().body(errorDefaultMessages);
+        return ApiResponse.<Map<String,String>>builder()
+                .code("FAILURE_CHECK_REQUEST")
+                .status(HttpStatus.BAD_REQUEST.value())
+                .name(objectName)
+                .data(errorDefaultMessages)
+                .build();
     }
 
     @ExceptionHandler(CustomException.class)
