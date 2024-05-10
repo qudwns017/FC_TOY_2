@@ -26,7 +26,6 @@ public class ControllerAdvice {
                 .forEach(error -> errorDefaultMessages.put(error.getField(), error.getDefaultMessage()));
 
         log.error("failure check request validation, uri: {}, objectName: {}, {}", request.getRequestURI(), objectName, errors);
-        //return ResponseEntity.badRequest().body(errorDefaultMessages);
         return ApiResponse.<Map<String,String>>builder()
                 .code("FAILURE_CHECK_REQUEST")
                 .status(HttpStatus.BAD_REQUEST.value())

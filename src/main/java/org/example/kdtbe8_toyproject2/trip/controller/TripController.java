@@ -27,7 +27,6 @@ public class TripController {
 
     @GetMapping
     public ApiResponse<?> getTripList() {
-        //return ResponseEntity.status(HttpStatus.OK).body(tripService.findAll());
         return ApiResponse.<List<TripListEntity>>builder()
                 .status(HttpStatus.OK.value())
                 .name(HttpStatus.OK.name())
@@ -39,7 +38,6 @@ public class TripController {
     public ApiResponse<?> getTripById(
             @PathVariable Long tripId
     ) {
-        //return ResponseEntity.status(HttpStatus.OK).body(tripService.findById(tripId));
         return ApiResponse.<GetTripByIdEntity>builder()
                 .status(HttpStatus.OK.value())
                 .name(HttpStatus.OK.name())
@@ -51,7 +49,6 @@ public class TripController {
     public ApiResponse<?> create(
             @Valid @RequestBody TripRequest tripRequest
     ) {
-        //return ResponseEntity.status(HttpStatus.CREATED).body(tripService.create(tripRequest));
         return ApiResponse.<TripDto>builder()
                 .status(HttpStatus.OK.value())
                 .name(HttpStatus.OK.name())
@@ -61,8 +58,6 @@ public class TripController {
 
     @PutMapping("/{tripId}")
     public ApiResponse<?> update(@PathVariable Long tripId, @Valid @RequestBody TripRequest tripRequest) {
-        //tripService.update(tripId, tripRequest);
-        //return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         return ApiResponse.<TripDto>builder()
                 .status(HttpStatus.OK.value())
                 .name(HttpStatus.OK.name())
@@ -73,7 +68,6 @@ public class TripController {
     @DeleteMapping("/{tripId}")
     public ApiResponse<?> delete(@PathVariable Long tripId) {
         tripService.delete(tripId);
-        //return ResponseEntity.status(HttpStatus.OK).build();
         return ApiResponse.<TripDto>builder()
                 .status(HttpStatus.ACCEPTED.value())
                 .name(HttpStatus.ACCEPTED.name())

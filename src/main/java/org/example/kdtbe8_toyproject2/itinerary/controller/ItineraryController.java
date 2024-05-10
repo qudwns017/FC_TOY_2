@@ -7,7 +7,6 @@ import org.example.kdtbe8_toyproject2.itinerary.model.ItineraryDto;
 import org.example.kdtbe8_toyproject2.itinerary.model.ItineraryRequest;
 import org.example.kdtbe8_toyproject2.itinerary.service.ItineraryService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +22,6 @@ public class ItineraryController {
     public ApiResponse<?> findByTripId(
             @PathVariable Long tripId
     ) {
-        //return ResponseEntity.status(HttpStatus.OK).body(itineraryService.findByTripId(tripId));
         return ApiResponse.<List<ItineraryDto>>builder()
                 .status(HttpStatus.OK.value())
                 .name(HttpStatus.OK.name())
@@ -38,7 +36,6 @@ public class ItineraryController {
             @RequestBody
             ItineraryRequest itineraryRequest
     ){
-        //return ResponseEntity.status(HttpStatus.CREATED).body(itineraryService.create(itineraryRequest,tripId));
         return ApiResponse.<ItineraryDto>builder()
                 .status(HttpStatus.OK.value())
                 .name(HttpStatus.OK.name())
@@ -56,7 +53,6 @@ public class ItineraryController {
             @RequestBody
             ItineraryRequest itineraryRequest
     ) {
-        //return ResponseEntity.status(HttpStatus.ACCEPTED).build();
         return ApiResponse.<ItineraryDto>builder()
                 .status(HttpStatus.ACCEPTED.value())
                 .name(HttpStatus.ACCEPTED.name())

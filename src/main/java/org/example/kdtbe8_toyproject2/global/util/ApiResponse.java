@@ -13,11 +13,11 @@ import java.util.List;
 /**
  *
  * @param code 에러 코드 명
- * @param status 상태 코드 값
  * @param name 오류 이름
  * @param message 오류 메시지
  * @param cause
- * @param data
+ * @param status 상태 코드 값
+ * @param data 응답 값
  * @param timestamp 발생 시각
  */
 @Builder
