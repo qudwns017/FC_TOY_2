@@ -8,8 +8,10 @@ import org.example.kdtbe8_toyproject2.accommodation.db.AccommodationMapper;
 import org.example.kdtbe8_toyproject2.accommodation.model.AccommodationDto;
 import org.example.kdtbe8_toyproject2.accommodation.model.AccomodationRequest;
 import org.example.kdtbe8_toyproject2.global.error.errorcode.TravelError;
+import org.example.kdtbe8_toyproject2.trip.service.TripService;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,12 +20,15 @@ import java.util.stream.Collectors;
 public class AccommodationService {
 
     private final AccommodationMapper accommodationMapper;
+    private final TripService tripService;
 
     public List<AccommodationDto> findByTripId(Long tripId){
+        Long tripServiceId = tripService.findTripId(tripId);
+        if(tripServiceId == null){
+            throw TravelError.TRIP_NOT_EXIST.defaultException();
+            }
+
         List<AccommodationEntity> accommodations = accommodationMapper.findByTripId(tripId);
-        if(accommodations == null || accommodations.isEmpty()){
-            throw TravelError.ACCOMMODATION_NOT_EXIST.defaultException();
-        }
 
         return accommodations.stream()
                 .map(AccommodationDto::toAccommodationDto)
@@ -47,9 +52,12 @@ public class AccommodationService {
         return AccommodationDto.toAccommodationDto(accommodationEntity);
     }
 
-    public void delete(Long id, Long tripId) {
-        var accommodationEntity = accommodationMapper.findByTripId(tripId);
+    public void delete(Long tripId, Long id) {
+        /*var accommodationEntity = accommodationMapper.findByTripId(tripId);
         if (accommodationEntity == null || accommodationEntity.isEmpty()) {
+            throw TravelError.TRIP_NOT_EXIST.defaultException();
+        }*/
+        if(tripService.findTripId(tripId) == null){
             throw TravelError.TRIP_NOT_EXIST.defaultException();
         }
         if (accommodationMapper.delete(id) == 0) {

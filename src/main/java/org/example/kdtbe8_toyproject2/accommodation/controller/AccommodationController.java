@@ -8,6 +8,7 @@ import org.example.kdtbe8_toyproject2.accommodation.db.AccommodationMapper;
 import org.example.kdtbe8_toyproject2.accommodation.model.AccommodationDto;
 import org.example.kdtbe8_toyproject2.accommodation.model.AccomodationRequest;
 import org.example.kdtbe8_toyproject2.accommodation.service.AccommodationService;
+import org.example.kdtbe8_toyproject2.global.util.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,22 +21,32 @@ import java.util.List;
 public class AccommodationController {
 
     private final AccommodationService accommodationService;
-
+    @GetMapping("")
+    public ApiResponse<?> findByTripId(@PathVariable Long tripId){
+        //return new ResponseEntity<>(accommodationDtoList, HttpStatus.OK);
+        return ApiResponse.<List<AccommodationDto>>builder()
+                .status(HttpStatus.OK.value())
+                .name(HttpStatus.OK.name())
+                .data(accommodationService.findByTripId(tripId))
+                .build();
+    }
     @PostMapping("")
-    public ResponseEntity<?> create(@PathVariable Long tripId, @Valid @RequestBody AccomodationRequest accomodationRequest){
-        AccommodationDto accommodationEntity = accommodationService.create(tripId, accomodationRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(accommodationEntity);
+    public ApiResponse<?> create(@PathVariable Long tripId, @Valid @RequestBody AccomodationRequest accomodationRequest){
+        //return ResponseEntity.status(HttpStatus.CREATED).body(accommodationEntity);
+        return ApiResponse.<AccommodationDto>builder()
+                .status(HttpStatus.OK.value())
+                .name(HttpStatus.OK.name())
+                .data(accommodationService.create(tripId, accomodationRequest))
+                .build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id, @PathVariable Long tripId){
-        accommodationService.delete(id,tripId);
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
+    public ApiResponse<?> delete(@PathVariable Long tripId,@PathVariable Long id){
+        accommodationService.delete(tripId, id);
+        return ApiResponse.builder()
+                .status(HttpStatus.ACCEPTED.value())
+                .name(HttpStatus.ACCEPTED.name())
+                .build();}
 
-    @GetMapping("")
-    public ResponseEntity<?> findByTripId(@PathVariable Long tripId){
-        List<AccommodationDto> accommodationDtoList = accommodationService.findByTripId(tripId);
-        return new ResponseEntity<>(accommodationDtoList, HttpStatus.OK);
-    }
+
 }

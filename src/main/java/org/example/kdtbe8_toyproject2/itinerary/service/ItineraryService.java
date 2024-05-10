@@ -51,8 +51,9 @@ public class ItineraryService {
         var trip = tripService.findById(tripId);
         if(!isValidDateTime(
                 trip.getStartDate(), trip.getEndDate(), itineraryRequest.getStartDatetime(), itineraryRequest.getEndDatetime()
-        ))
+        )){
             throw TravelError.TIME_ERROR.defaultException();
+        }
 
         ItineraryEntity itineraryEntity = ItineraryEntity.builder()
                 .tripId(tripId)
