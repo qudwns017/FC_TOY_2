@@ -41,7 +41,7 @@ public class TripService {
                 .tripName(tripRequest.getTripName())
                 .startDate(tripRequest.getStartDate())
                 .endDate(tripRequest.getEndDate())
-                .isOversea(tripRequest.getIsOversea())
+                .isOversea(tripRequest.getIsOversea().getValue())
                 .comment(tripRequest.getComment())
                 .build();
 
@@ -55,7 +55,7 @@ public class TripService {
                 .tripName(tripRequest.getTripName())
                 .startDate(tripRequest.getStartDate())
                 .endDate(tripRequest.getEndDate())
-                .isOversea(tripRequest.getIsOversea())
+                .isOversea(tripRequest.getIsOversea().getValue())
                 .comment(tripRequest.getComment())
                 .build();
 

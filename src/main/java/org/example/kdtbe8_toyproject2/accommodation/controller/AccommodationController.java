@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.kdtbe8_toyproject2.accommodation.model.AccommodationDto;
 import org.example.kdtbe8_toyproject2.accommodation.model.AccommodationRequest;
 import org.example.kdtbe8_toyproject2.accommodation.service.AccommodationService;
-import org.example.kdtbe8_toyproject2.global.util.ApiResponse;
+import org.example.kdtbe8_toyproject2.global.util.ApiResponseUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,16 +18,16 @@ public class AccommodationController {
 
     private final AccommodationService accommodationService;
     @GetMapping("")
-    public ApiResponse<?> findByTripId(@PathVariable Long tripId){
-        return ApiResponse.<List<AccommodationDto>>builder()
+    public ApiResponseUtil<?> findByTripId(@PathVariable Long tripId){
+        return ApiResponseUtil.<List<AccommodationDto>>builder()
                 .status(HttpStatus.OK.value())
                 .name(HttpStatus.OK.name())
                 .data(accommodationService.findByTripId(tripId))
                 .build();
     }
     @PostMapping("")
-    public ApiResponse<?> create(@PathVariable Long tripId, @Valid @RequestBody AccommodationRequest accommodationRequest){
-        return ApiResponse.<AccommodationDto>builder()
+    public ApiResponseUtil<?> create(@PathVariable Long tripId, @Valid @RequestBody AccommodationRequest accommodationRequest){
+        return ApiResponseUtil.<AccommodationDto>builder()
                 .status(HttpStatus.OK.value())
                 .name(HttpStatus.OK.name())
                 .data(accommodationService.create(tripId, accommodationRequest))
@@ -35,9 +35,9 @@ public class AccommodationController {
     }
 
     @DeleteMapping("/{itineraryId}")
-    public ApiResponse<?> delete(@PathVariable Long tripId,@PathVariable Long itineraryId){
+    public ApiResponseUtil<?> delete(@PathVariable Long tripId, @PathVariable Long itineraryId){
         accommodationService.delete(tripId, itineraryId);
-        return ApiResponse.builder()
+        return ApiResponseUtil.builder()
                 .status(HttpStatus.ACCEPTED.value())
                 .name(HttpStatus.ACCEPTED.name())
                 .build();

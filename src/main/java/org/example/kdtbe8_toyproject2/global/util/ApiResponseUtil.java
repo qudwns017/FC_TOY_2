@@ -21,7 +21,7 @@ import java.util.List;
  * @param timestamp 발생 시각
  */
 @Builder
-public record ApiResponse<T>(
+public record ApiResponseUtil<T>(
         @JsonInclude(Include.NON_EMPTY) String code,
         Integer status,
         String name,
@@ -30,12 +30,12 @@ public record ApiResponse<T>(
         @JsonInclude(Include.NON_EMPTY) List<ApiSimpleError> cause,
         Instant timestamp
 ) {
-    public static ApiResponse of(CustomException exception) {
+    public static ApiResponseUtil of(CustomException exception) {
         ErrorCode errorCode = exception.getErrorCode();
         String errorName = exception.getClass().getName();
         errorName = errorName.substring(errorName.lastIndexOf('.') + 1);
 
-        return ApiResponse.builder()
+        return ApiResponseUtil.builder()
                 .code(errorCode.name())
                 .status(errorCode.defaultHttpStatus().value())
                 .name(errorName)
@@ -44,7 +44,7 @@ public record ApiResponse<T>(
                 .build();
     }
 
-    public ApiResponse {
+    public ApiResponseUtil {
         if (status == null) {
             status = 500;
         }

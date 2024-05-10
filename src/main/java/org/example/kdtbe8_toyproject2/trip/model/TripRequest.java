@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.example.kdtbe8_toyproject2.trip.enums.OverseaType;
 
 import java.time.LocalDate;
 
@@ -33,7 +34,7 @@ public class TripRequest {
     private LocalDate endDate;
 
     @NotNull(message = "국/내외 여부 항목은 빈 값일 수 없습니다.")
-    private int isOversea;
+    private OverseaType isOversea;
 
     private String comment;
 
