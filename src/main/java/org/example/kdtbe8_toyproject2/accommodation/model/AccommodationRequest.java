@@ -18,10 +18,6 @@ import java.time.LocalDateTime;
 @Builder
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class AccommodationRequest {
-
-    private Long id;
-    @NotNull(message= "여행 아이디를 입력해주세요.")
-    private Long tripId;
     @NotBlank(message = "숙박 장소는 빈 칸일 수 없습니다.")
     private String name;
     @NotNull(message = "체크인 시간은 빈칸일 수 없습니다. ")

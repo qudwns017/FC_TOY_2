@@ -20,7 +20,6 @@ import java.time.LocalDate;
 @Builder
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class TripRequest {
-    private Long tripId;
     @NotBlank(message = "제목은 빈 값일 수 없습니다.")
     @Size(min = 1, max = 50, message = "제목은 1 ~ 50자 사이여야 합니다.")
     private String tripName;
