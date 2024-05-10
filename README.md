@@ -392,7 +392,7 @@ Java 17, Spring Boot, MyBatis, Postman, MySQL, Notion, Discord
 
 ### createTrip
 
-![image](https://github.com/qudwns017/qudwns017/assets/82150958/265885d4-a45f-41d1-885a-50317e02980a)
+![image](https://github.com/qudwns017/qudwns017/assets/82150958/4e60a719-52cf-4dd3-86ca-6d34f4d6b6c4)
 
 > 여행 정보 생성
 
@@ -403,7 +403,7 @@ Java 17, Spring Boot, MyBatis, Postman, MySQL, Notion, Discord
   "trip_name": "string",
   "start_date": "2024-02-01",
   "end_date": "2024-02-04",
-  "is_oversea": 1,
+  "is_oversea": "TRUE",
   "comment": "string"
 }
 ```
