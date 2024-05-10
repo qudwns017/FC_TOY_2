@@ -92,6 +92,7 @@ Java 17, Spring Boot, MyBatis, Postman, MySQL, Notion, Discord
 ![image](https://github.com/qudwns017/qudwns017/assets/82150958/cfe813f0-eafc-442e-9d92-00742c8aa616)
 
 ### getTrip
+![image](https://github.com/qudwns017/qudwns017/assets/82150958/70680d2c-8302-489c-8cad-20a8338e745a)
 
 > 여행과 각 여행에 대한 여정의 id와 name List를 반환
 
@@ -143,6 +144,7 @@ Java 17, Spring Boot, MyBatis, Postman, MySQL, Notion, Discord
 ```
 
 ### getTripById
+![image](https://github.com/qudwns017/qudwns017/assets/82150958/daa36246-1bd4-4550-96e6-641f47c2057f)
 
 > 특정 여행의 정보, 숙박 정보, 여정 정보 호출
 
@@ -191,6 +193,7 @@ Java 17, Spring Boot, MyBatis, Postman, MySQL, Notion, Discord
 ```
 
 ### createTrip
+![image](https://github.com/qudwns017/qudwns017/assets/82150958/265885d4-a45f-41d1-885a-50317e02980a)
 
 > 여행 정보 생성
 
@@ -224,6 +227,7 @@ Java 17, Spring Boot, MyBatis, Postman, MySQL, Notion, Discord
 ```
 
 ### updateTrip
+![image](https://github.com/qudwns017/qudwns017/assets/82150958/e4c90cbd-b221-4d6c-8faa-535b3714af16)
 
 > 등록되어있는 여행 정보 수정
 
@@ -258,6 +262,7 @@ Java 17, Spring Boot, MyBatis, Postman, MySQL, Notion, Discord
 ```
 
 ### deleteTrip
+![image](https://github.com/qudwns017/qudwns017/assets/82150958/ae276336-9594-4329-a38d-0555945ff143)
 
 > 등록되어있는 여행 삭제
 
@@ -278,6 +283,7 @@ Java 17, Spring Boot, MyBatis, Postman, MySQL, Notion, Discord
 ```
 
 ### createAccommodation
+![image](https://github.com/qudwns017/qudwns017/assets/82150958/bd064f45-d2c7-4050-9db7-1d968a669735)
 
 > 여행에 대한 숙박 정보 생성
 
@@ -310,6 +316,7 @@ Java 17, Spring Boot, MyBatis, Postman, MySQL, Notion, Discord
 ```
 
 ### deleteAccommodation
+![image](https://github.com/qudwns017/qudwns017/assets/82150958/6ad791a8-1437-4934-8340-4963d983e3c5)
 
 > 등록되어있는 숙박 정보 삭제
 
@@ -330,6 +337,7 @@ Java 17, Spring Boot, MyBatis, Postman, MySQL, Notion, Discord
 ```
 
 ### getItinerary
+![image](https://github.com/qudwns017/qudwns017/assets/82150958/259c1787-e072-43b2-86d9-6a21bc7e5846)
 
 > 등록되어있는 여행에 대한 여정 리스트 호출
 
@@ -370,6 +378,7 @@ Java 17, Spring Boot, MyBatis, Postman, MySQL, Notion, Discord
 ```
 
 ### createItinerary
+![image](https://github.com/qudwns017/qudwns017/assets/82150958/3be99e3b-34b2-4242-82ec-bb495615ce5c)
 
 > 여정 생성
 
@@ -439,6 +448,7 @@ Java 17, Spring Boot, MyBatis, Postman, MySQL, Notion, Discord
 ```
 
 ### updateItinerary
+![image](https://github.com/qudwns017/qudwns017/assets/82150958/2984b797-86c7-4ae9-8714-c11300dddc54)
 
 > 여정에 대한 데이터 수정
 
@@ -480,6 +490,7 @@ Java 17, Spring Boot, MyBatis, Postman, MySQL, Notion, Discord
 ```
 
 ### deleteItinerary
+![image](https://github.com/qudwns017/qudwns017/assets/82150958/c67d7df8-25ea-4501-b862-17784a64cfc3)
 
 > 여정과 여정 ID를 외래키로 갖고 있는 Move나 Stay도 삭제
 
