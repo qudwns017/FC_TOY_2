@@ -50,11 +50,11 @@ public class AccommodationService {
         return AccommodationDto.toAccommodationDto(accommodationEntity);
     }
 
-    public void delete(Long tripId, Long itineraryId) {
+    public void delete(Long tripId, Long accommodationId) {
         if(tripService.findTripId(tripId) == null){
             throw TravelError.TRIP_NOT_EXIST.defaultException();
         }
-        if (accommodationMapper.delete(itineraryId) == 0) {
+        if (accommodationMapper.delete(accommodationId) == 0) {
             throw TravelError.ACCOMMODATION_NOT_EXIST.defaultException();
 
         }
