@@ -2,12 +2,12 @@ package org.example.kdtbe8_toyproject2.accommodation.service;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.javassist.NotFoundException;
 import org.example.kdtbe8_toyproject2.accommodation.db.AccommodationEntity;
 import org.example.kdtbe8_toyproject2.accommodation.db.AccommodationMapper;
 import org.example.kdtbe8_toyproject2.accommodation.model.AccommodationDto;
-import org.example.kdtbe8_toyproject2.accommodation.model.AccomodationRequest;
-import org.example.kdtbe8_toyproject2.global.error.errorcode.AccommodationError;
+import org.example.kdtbe8_toyproject2.accommodation.model.AccommodationRequest;
+import org.example.kdtbe8_toyproject2.global.error.errorcode.TravelError;
+import org.example.kdtbe8_toyproject2.trip.service.TripService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,39 +18,44 @@ import java.util.stream.Collectors;
 public class AccommodationService {
 
     private final AccommodationMapper accommodationMapper;
+    private final TripService tripService;
 
     public List<AccommodationDto> findByTripId(Long tripId){
+        Long tripServiceId = tripService.findTripId(tripId);
+        if(tripServiceId == null){
+            throw TravelError.TRIP_NOT_EXIST.defaultException();
+            }
+
         List<AccommodationEntity> accommodations = accommodationMapper.findByTripId(tripId);
-        if(accommodations == null || accommodations.isEmpty()){
-            throw AccommodationError.ACCOMMODATION_NOT_EXIST.defaultException();
-        }
 
         return accommodations.stream()
                 .map(AccommodationDto::toAccommodationDto)
                 .collect(Collectors.toList());
     }
 
-    public AccommodationDto create(Long tripId, @Valid AccomodationRequest accomodationRequest) {
+    public AccommodationDto create(Long tripId, @Valid AccommodationRequest accommodationRequest) {
         var accommodationEntity = AccommodationEntity.builder()
                 .tripId(tripId)
-                .name(accomodationRequest.getName())
-                .checkInDatetime(accomodationRequest.getCheckInDatetime())
-                .checkOutDatetime(accomodationRequest.getCheckOutDatetime())
+                .name(accommodationRequest.getName())
+                .checkInDatetime(accommodationRequest.getCheckInDatetime())
+                .checkOutDatetime(accommodationRequest.getCheckOutDatetime())
                 .build();
 
         try {
             accommodationMapper.create(accommodationEntity);
         } catch (Exception e) {
-            throw AccommodationError.TRIP_NOT_EXIST.defaultException(e);
+            throw TravelError.TRIP_NOT_EXIST.defaultException(e);
         }
 
         return AccommodationDto.toAccommodationDto(accommodationEntity);
     }
 
-    public void delete(Long id, Long tripId) {
-        var accommodationEntity = accommodationMapper.findByTripId(tripId);
-        if (accommodationMapper.delete(id) == 0) {
-            throw AccommodationError.ACCOMMODATION_NOT_EXIST.defaultException();
+    public void delete(Long tripId, Long itineraryId) {
+        if(tripService.findTripId(tripId) == null){
+            throw TravelError.TRIP_NOT_EXIST.defaultException();
+        }
+        if (accommodationMapper.delete(itineraryId) == 0) {
+            throw TravelError.ACCOMMODATION_NOT_EXIST.defaultException();
 
         }
     }

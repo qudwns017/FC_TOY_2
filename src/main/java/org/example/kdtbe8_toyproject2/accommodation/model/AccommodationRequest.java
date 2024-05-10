@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class AccomodationRequest {
+public class AccommodationRequest {
 
     private Long id;
     @NotNull(message= "여행 아이디를 입력해주세요.")

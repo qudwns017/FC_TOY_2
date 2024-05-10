@@ -1,7 +1,7 @@
 package org.example.kdtbe8_toyproject2.itinerary.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.kdtbe8_toyproject2.global.error.errorcode.ItineraryError;
+import org.example.kdtbe8_toyproject2.global.error.errorcode.TravelError;
 import org.example.kdtbe8_toyproject2.itinerary.db.ItineraryEntity;
 import org.example.kdtbe8_toyproject2.itinerary.db.MoveEntity;
 import org.example.kdtbe8_toyproject2.itinerary.db.StayEntity;
@@ -12,6 +12,8 @@ import org.example.kdtbe8_toyproject2.trip.service.TripService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +25,7 @@ public class ItineraryService {
 
     public List<ItineraryDto> findByTripId(Long tripId) {
         if(tripService.findTripId(tripId) == null){
-            throw ItineraryError.TRIP_NOT_EXIST.defaultException();
+            throw TravelError.TRIP_NOT_EXIST.defaultException();
         }
 
         List<ItineraryEntity> itineraries = itineraryMapper.findAllItineraries(tripId);
@@ -46,6 +48,13 @@ public class ItineraryService {
             ItineraryRequest itineraryRequest,
             Long tripId
     ){
+        var trip = tripService.findById(tripId);
+        if(!isValidDateTime(
+                trip.getStartDate(), trip.getEndDate(), itineraryRequest.getStartDatetime(), itineraryRequest.getEndDatetime()
+        )){
+            throw TravelError.TIME_ERROR.defaultException();
+        }
+
         ItineraryEntity itineraryEntity = ItineraryEntity.builder()
                 .tripId(tripId)
                 .name(itineraryRequest.getItineraryName())
@@ -58,7 +67,7 @@ public class ItineraryService {
             itineraryMapper.createItinerary(itineraryEntity);
         }
         catch (Exception e){
-            throw ItineraryError.TRIP_NOT_EXIST.defaultException(e);
+            throw TravelError.TRIP_NOT_EXIST.defaultException(e);
         }
 
 
@@ -92,9 +101,13 @@ public class ItineraryService {
             Long id,
             ItineraryRequest itineraryRequest
     ) {
-        if(tripService.findTripId(tripId) == null){
-            throw ItineraryError.TRIP_NOT_EXIST.defaultException();
-        }
+
+        var trip = tripService.findById(tripId);
+        if(!isValidDateTime(
+                trip.getStartDate(), trip.getEndDate(), itineraryRequest.getStartDatetime(), itineraryRequest.getEndDatetime()
+        ))
+             throw TravelError.TIME_ERROR.defaultException();
+
         var itineraryEntity = ItineraryEntity.builder()
                 .id(id)
                 .tripId(tripId)
@@ -111,7 +124,7 @@ public class ItineraryService {
         int deleteStayStatus = itineraryMapper.deleteStay(id);
 
         if (deleteMoveStatus == 0 && deleteStayStatus == 0) {
-            throw ItineraryError.UPDATE_FAILED.defaultException();
+            throw TravelError.UPDATE_FAILED.defaultException();
         }
 
         MoveEntity moveEntity = null;
@@ -141,11 +154,21 @@ public class ItineraryService {
     @Transactional
     public void delete(Long tripId, Long itineraryId){
         if(tripService.findTripId(tripId) == null){
-            throw ItineraryError.TRIP_NOT_EXIST.defaultException();
+            throw TravelError.TRIP_NOT_EXIST.defaultException();
         }
 
         if(itineraryMapper.deleteItinerary(itineraryId) == 0){
-            throw ItineraryError.ITINERARY_NOT_EXIST.defaultException();
+            throw TravelError.ITINERARY_NOT_EXIST.defaultException();
         };
     }
+
+    public static boolean isValidDateTime(
+            LocalDate startTravel, LocalDate endTravel,
+            LocalDateTime startItinerary, LocalDateTime endItinerary
+    ) {
+        return (startItinerary.toLocalDate().isEqual(startTravel) || startItinerary.toLocalDate().isAfter(startTravel)) &&
+                (endItinerary.toLocalDate().isEqual(endTravel) || endItinerary.toLocalDate().isBefore(endTravel)) &&
+                (startItinerary.isBefore(endItinerary));
+    }
+
 }

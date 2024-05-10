@@ -1,13 +1,11 @@
 package org.example.kdtbe8_toyproject2.itinerary.controller;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.kdtbe8_toyproject2.global.util.ApiResponse;
+import org.example.kdtbe8_toyproject2.global.util.ApiResponseUtil;
 import org.example.kdtbe8_toyproject2.itinerary.model.ItineraryDto;
 import org.example.kdtbe8_toyproject2.itinerary.model.ItineraryRequest;
 import org.example.kdtbe8_toyproject2.itinerary.service.ItineraryService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,11 +18,10 @@ public class ItineraryController {
     private final ItineraryService itineraryService;
 
     @GetMapping
-    public ApiResponse<?> findByTripId(
+    public ApiResponseUtil<?> findByTripId(
             @PathVariable Long tripId
     ) {
-        //return ResponseEntity.status(HttpStatus.OK).body(itineraryService.findByTripId(tripId));
-        return ApiResponse.<List<ItineraryDto>>builder()
+        return ApiResponseUtil.<List<ItineraryDto>>builder()
                 .status(HttpStatus.OK.value())
                 .name(HttpStatus.OK.name())
                 .data(itineraryService.findByTripId(tripId))
@@ -32,14 +29,13 @@ public class ItineraryController {
     }
 
     @PostMapping
-    public ApiResponse<?> create(
+    public ApiResponseUtil<?> create(
             @PathVariable Long tripId,
             @Validated
             @RequestBody
             ItineraryRequest itineraryRequest
     ){
-        //return ResponseEntity.status(HttpStatus.CREATED).body(itineraryService.create(itineraryRequest,tripId));
-        return ApiResponse.<ItineraryDto>builder()
+        return ApiResponseUtil.<ItineraryDto>builder()
                 .status(HttpStatus.OK.value())
                 .name(HttpStatus.OK.name())
                 .data(itineraryService.create(itineraryRequest,tripId))
@@ -47,7 +43,7 @@ public class ItineraryController {
     }
 
     @PutMapping("/{itineraryId}")
-    public ApiResponse<?> update(
+    public ApiResponseUtil<?> update(
             @PathVariable
             Long tripId,
             @PathVariable
@@ -56,8 +52,7 @@ public class ItineraryController {
             @RequestBody
             ItineraryRequest itineraryRequest
     ) {
-        //return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-        return ApiResponse.<ItineraryDto>builder()
+        return ApiResponseUtil.<ItineraryDto>builder()
                 .status(HttpStatus.ACCEPTED.value())
                 .name(HttpStatus.ACCEPTED.name())
                 .data(itineraryService.update(tripId, itineraryId, itineraryRequest))
@@ -65,13 +60,13 @@ public class ItineraryController {
     }
 
     @DeleteMapping("/{itineraryId}")
-    public ApiResponse<?> delete(
+    public ApiResponseUtil<?> delete(
             @PathVariable Long tripId,
             @PathVariable Long itineraryId
     ) {
         itineraryService.delete(tripId, itineraryId);
 
-        return ApiResponse.builder()
+        return ApiResponseUtil.builder()
                 .status(HttpStatus.ACCEPTED.value())
                 .name(HttpStatus.ACCEPTED.name())
                 .build();
