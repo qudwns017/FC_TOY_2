@@ -7,7 +7,7 @@ import org.example.kdtbe8_toyproject2.accommodation.db.AccommodationEntity;
 import org.example.kdtbe8_toyproject2.accommodation.db.AccommodationMapper;
 import org.example.kdtbe8_toyproject2.accommodation.model.AccommodationDto;
 import org.example.kdtbe8_toyproject2.accommodation.model.AccomodationRequest;
-import org.example.kdtbe8_toyproject2.global.error.errorcode.AccommodationError;
+import org.example.kdtbe8_toyproject2.global.error.errorcode.TravelError;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class AccommodationService {
     public List<AccommodationDto> findByTripId(Long tripId){
         List<AccommodationEntity> accommodations = accommodationMapper.findByTripId(tripId);
         if(accommodations == null || accommodations.isEmpty()){
-            throw AccommodationError.ACCOMMODATION_NOT_EXIST.defaultException();
+            throw TravelError.ACCOMMODATION_NOT_EXIST.defaultException();
         }
 
         return accommodations.stream()
@@ -41,7 +41,7 @@ public class AccommodationService {
         try {
             accommodationMapper.create(accommodationEntity);
         } catch (Exception e) {
-            throw AccommodationError.TRIP_NOT_EXIST.defaultException(e);
+            throw TravelError.TRIP_NOT_EXIST.defaultException(e);
         }
 
         return AccommodationDto.toAccommodationDto(accommodationEntity);
@@ -50,10 +50,10 @@ public class AccommodationService {
     public void delete(Long id, Long tripId) {
         var accommodationEntity = accommodationMapper.findByTripId(tripId);
         if (accommodationEntity == null || accommodationEntity.isEmpty()) {
-            throw AccommodationError.TRIP_NOT_EXIST.defaultException();
+            throw TravelError.TRIP_NOT_EXIST.defaultException();
         }
         if (accommodationMapper.delete(id) == 0) {
-            throw AccommodationError.ACCOMMODATION_NOT_EXIST.defaultException();
+            throw TravelError.ACCOMMODATION_NOT_EXIST.defaultException();
 
         }
     }

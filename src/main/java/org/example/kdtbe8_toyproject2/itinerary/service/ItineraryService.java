@@ -1,7 +1,6 @@
 package org.example.kdtbe8_toyproject2.itinerary.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.kdtbe8_toyproject2.global.error.errorcode.ItineraryError;
 import org.example.kdtbe8_toyproject2.global.error.errorcode.TravelError;
 import org.example.kdtbe8_toyproject2.itinerary.db.ItineraryEntity;
 import org.example.kdtbe8_toyproject2.itinerary.db.MoveEntity;
@@ -26,7 +25,7 @@ public class ItineraryService {
 
     public List<ItineraryDto> findByTripId(Long tripId) {
         if(tripService.findTripId(tripId) == null){
-            throw ItineraryError.TRIP_NOT_EXIST.defaultException();
+            throw TravelError.TRIP_NOT_EXIST.defaultException();
         }
 
         List<ItineraryEntity> itineraries = itineraryMapper.findAllItineraries(tripId);
@@ -67,7 +66,7 @@ public class ItineraryService {
             itineraryMapper.createItinerary(itineraryEntity);
         }
         catch (Exception e){
-            throw ItineraryError.TRIP_NOT_EXIST.defaultException(e);
+            throw TravelError.TRIP_NOT_EXIST.defaultException(e);
         }
 
 
@@ -124,7 +123,7 @@ public class ItineraryService {
         int deleteStayStatus = itineraryMapper.deleteStay(id);
 
         if (deleteMoveStatus == 0 && deleteStayStatus == 0) {
-            throw ItineraryError.UPDATE_FAILED.defaultException();
+            throw TravelError.UPDATE_FAILED.defaultException();
         }
 
         MoveEntity moveEntity = null;
@@ -154,11 +153,11 @@ public class ItineraryService {
     @Transactional
     public void delete(Long tripId, Long itineraryId){
         if(tripService.findTripId(tripId) == null){
-            throw ItineraryError.TRIP_NOT_EXIST.defaultException();
+            throw TravelError.TRIP_NOT_EXIST.defaultException();
         }
 
         if(itineraryMapper.deleteItinerary(itineraryId) == 0){
-            throw ItineraryError.ITINERARY_NOT_EXIST.defaultException();
+            throw TravelError.ITINERARY_NOT_EXIST.defaultException();
         };
     }
 
