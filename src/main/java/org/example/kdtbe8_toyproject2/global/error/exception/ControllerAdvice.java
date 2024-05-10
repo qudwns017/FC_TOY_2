@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.example.kdtbe8_toyproject2.global.util.ApiResponseUtil;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -33,13 +32,17 @@ public class ControllerAdvice {
                 .build();
     }
 
-    @ExceptionHandler(CustomException.class)
-    public ResponseEntity<ApiResponseUtil> handleMemberException(CustomException exception) {
-        ApiResponseUtil response = ApiResponseUtil.of(exception);
+    @ExceptionHandler(TravelException.class)
+    public ApiResponseUtil handleTravelException(TravelException exception) {
         HttpStatus httpStatus = exception
-                .getErrorCode()
+                .errorCode
                 .defaultHttpStatus();
 
-        return new ResponseEntity<>(response, httpStatus);
+        return ApiResponseUtil.builder()
+                .code(exception.errorCode.name())
+                .name(exception.errorCode.defaultHttpStatus().name())
+                .status(exception.errorCode.defaultHttpStatus().value())
+                .message(exception.getMessage())
+                .build();
     }
 }

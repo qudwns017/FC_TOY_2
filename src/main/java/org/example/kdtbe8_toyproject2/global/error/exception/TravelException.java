@@ -1,12 +1,13 @@
 package org.example.kdtbe8_toyproject2.global.error.exception;
 
 
-import org.example.kdtbe8_toyproject2.global.error.errorcode.ErrorCode;
+import lombok.Getter;
+import org.example.kdtbe8_toyproject2.global.error.errorcode.TravelError;
 
-public class TravelException extends CustomException {
-     public TravelException() {
-        super();
-    }
+
+@Getter
+public class TravelException extends RuntimeException {
+    protected TravelError errorCode;
 
     public TravelException(String message) {
         super(message);
@@ -16,11 +17,13 @@ public class TravelException extends CustomException {
         super(message, cause);
     }
 
-    public TravelException (ErrorCode errorCode) {
-        super(errorCode);
+    public TravelException (TravelError errorCode) {
+        super(errorCode.defaultMessage());
+        this.errorCode = errorCode;
     }
 
-    public TravelException(ErrorCode errorCode, Throwable cause) {
-        super(errorCode, cause);
+    public TravelException(TravelError errorCode, Throwable cause) {
+        super(errorCode.defaultMessage(),cause);
+        this.errorCode = errorCode;
     }
 }
