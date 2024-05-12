@@ -1,13 +1,32 @@
 package org.example.kdtbe8_toyproject2.trip.model;
 
-import java.time.LocalDateTime;
+import lombok.*;
+import org.example.kdtbe8_toyproject2.trip.db.TripEntity;
 
+import java.time.LocalDate;
+
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class TripDto {
     private Long tripId;
     private String tripName;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
-    private Boolean isOversea;
-//    private List<AccomodationDto>;
-//    private List<ItineraryDto>;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private int isOversea;
+    private String comment;
+
+    public static TripDto toDto(TripEntity tripEntity) {
+        return TripDto.builder()
+                .tripId(tripEntity.getTripId())
+                .tripName(tripEntity.getTripName())
+                .startDate(tripEntity.getStartDate())
+                .endDate(tripEntity.getEndDate())
+                .isOversea(tripEntity.getIsOversea())
+                .comment(tripEntity.getComment())
+                .build();
+    }
 }
