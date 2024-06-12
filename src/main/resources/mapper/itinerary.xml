@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.example.kdtbe8_toyproject2.itinerary.db.ItineraryMapper">
+    <select id="findAllItineraries" resultType="org.example.kdtbe8_toyproject2.itinerary.db.ItineraryEntity">
+        SELECT *
+        FROM itinerary
+        WHERE trip_id = #{tripId}
+    </select>
+
+    <select id="findMoveById" resultType="org.example.kdtbe8_toyproject2.itinerary.db.MoveEntity">
+        SELECT *
+        FROM move
+        WHERE itinerary_id = #{itineraryId}
+    </select>
+
+    <select id="findStayById" resultType="org.example.kdtbe8_toyproject2.itinerary.db.StayEntity">
+        SELECT *
+        FROM stay
+        WHERE itinerary_id = #{itineraryId}
+    </select>
+
+    <select id="findItineraryById" resultType="org.example.kdtbe8_toyproject2.itinerary.db.ItineraryEntity">
+        SELECT *
+        FROM itinerary
+        WHERE id = #{itineraryId}
+    </select>
+
+    <insert id="createItinerary" parameterType="org.example.kdtbe8_toyproject2.itinerary.db.ItineraryEntity">
+        insert into itinerary (trip_id,name, type, start_datetime, end_datetime, comment)
+        values(#{tripId},#{name},#{type},#{startDatetime},#{endDatetime},#{comment})
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            select max(id) from itinerary
+        </selectKey>
+    </insert>
+
+    <insert id="createMove" parameterType="org.example.kdtbe8_toyproject2.itinerary.db.MoveEntity">
+        insert into move (itinerary_id, transportation, departure_place, arrival_place)
+        values(#{itineraryId},#{transportation},#{departurePlace},#{arrivalPlace})
+    </insert>
+
+    <insert id="createStay" parameterType="org.example.kdtbe8_toyproject2.itinerary.db.StayEntity">
+        insert into stay (itinerary_id, place)
+        values(#{itineraryId},#{place})
+    </insert>
+
+    <update id="updateItinerary" parameterType="org.example.kdtbe8_toyproject2.itinerary.db.ItineraryEntity">
+        UPDATE itinerary
+        SET
+
+            name = #{name},
+            type = #{type},
+            start_datetime = #{startDatetime},
+            end_datetime = #{endDatetime},
+            comment = #{comment}
+        WHERE
+            id = #{id}
+    </update>
+
+    <delete id="deleteItinerary" parameterType="org.example.kdtbe8_toyproject2.itinerary.db.ItineraryEntity">
+        delete from itinerary where id=#{itineraryId}
+    </delete>
+    <delete id="deleteMove" parameterType="org.example.kdtbe8_toyproject2.itinerary.db.MoveEntity">
+        delete from move where itinerary_id=#{itineraryId}
+    </delete>
+    <delete id="deleteStay" parameterType="org.example.kdtbe8_toyproject2.itinerary.db.StayEntity">
+        delete from stay where itinerary_id=#{itineraryId}
+    </delete>
+
+</mapper>
